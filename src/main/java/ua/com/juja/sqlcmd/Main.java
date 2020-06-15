@@ -1,49 +1,46 @@
 package ua.com.juja.sqlcmd;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("-------- PostgreSQL "
-                + "JDBC Connection Testing ------------");
+	public static final String USER_NAME = "postgres";
+	public static final String DATABASE_NAME = "jdbc:postgresql://localhost/sqlcmd_db";
+	public static final String PASSWORD = "777";
 
-        try {
+	public static void main(String[] args) throws SQLException {
+		Connection connection = DriverManager.getConnection(DATABASE_NAME, USER_NAME, PASSWORD);
 
-            Class.forName("org.postgresql.Driver");
+		//Insert
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate("INSERT INTO public.user_info(NAME, PASSWORD) "
+				+ "VALUES ('Stiven Pupkin', 'pass' );");
+		stmt.close();
 
-        } catch (ClassNotFoundException e) {
+		//delete
+		stmt = connection.createStatement();
+		stmt.executeUpdate("DELETE from public.user_info WHERE id > 10;");
+		stmt.close();
 
-            System.out.println("Where is your PostgreSQL JDBC Driver? "
-                    + "Include in your library path!");
-            e.printStackTrace();
-            return;
+		//select
+		Statement st = connection.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM public.user_info;");
+		while (rs.next()) {
+			System.out.println("id: " + rs.getString(1));
+			System.out.println("name: " + rs.getString(2));
+			System.out.println("password: " + rs.getString(3));
+			System.out.println("=============");
+		}
+		rs.close();
 
-        }
+		//update
+		PreparedStatement pstmt = connection.prepareStatement("UPDATE public.user_info "
+				+ "SET password = ? "
+				+ "WHERE id > 5;");
 
-        System.out.println("PostgreSQL JDBC Driver Registered!");
+			pstmt.setString(1, "passsss");
+			pstmt.executeUpdate();
+			pstmt.close();
 
-        Connection connection = null;
-
-        try {
-
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost/sqlcmd_db", "postgres",
-                    "777");
-
-        } catch (SQLException e) {
-
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-            return;
-
-        }
-
-        if (connection != null) {
-            System.out.println("You made it, take control your database now!");
-        } else {
-            System.out.println("Failed to make connection!");
-        }
-    }
+		connection.close();
+	}
 }
