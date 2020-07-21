@@ -1,18 +1,18 @@
-package ua.com.juja.sqlcmd;
+package ua.com.juja.sqlcmd.model;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseManager {
+public class JDBCDatabaseManager implements DatabaseManager {
     private Connection connection;
 
+    @Override
     public DataSet[] getTableData(String tableName) {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM public." + tableName)) {
 
             int size = getSize(tableName);
-
             ResultSetMetaData metaData = rs.getMetaData();
             DataSet[] result = new DataSet[size];
             int index = 0;
@@ -34,15 +34,14 @@ public class DatabaseManager {
         try (Statement stmt = connection.createStatement();
              ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName + ";")) {
             rsCount.next();
-            int size = rsCount.getInt(1);
-
-            return size;
+            return rsCount.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
     }
 
+    @Override
     public String[] getTableNames() {
         try (Statement st = connection.createStatement();
              ResultSet rs = st.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type = 'BASE TABLE';")) {
@@ -51,30 +50,30 @@ public class DatabaseManager {
             while (rs.next()) {
                 listTables.add(rs.getString("table_name"));
             }
-            String[] tables = listTables.toArray(new String[0]);
-            return tables;
+            return listTables.toArray(new String[0]);
         } catch (SQLException e) {
             e.printStackTrace();
             return new String[0];
         }
     }
 
-    public void connect(String database, String user, String password) {
+    @Override
+    public void connect(String database, String userName, String password) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("Please add maven dependency in project");
-            e.printStackTrace();
+            throw new RuntimeException("please add maven dependency in project", e);
         }
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost/" + database, user, password);
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost/" + database, userName, password);
         } catch (SQLException e) {
-            System.out.println(String.format("Can get connection for databace:%s, user:%s, password:%s", database, user, password));
-            e.printStackTrace();
             connection = null;
+            throw new RuntimeException(String.format(
+                    "can get connection for databace:%s, userName:%s, password:%s", database, userName, password), e);
         }
     }
 
+    @Override
     public void clear(String tableName) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE from public." + tableName);
@@ -83,9 +82,9 @@ public class DatabaseManager {
         }
     }
 
-    public void create(String tableName ,DataSet input) {
-        try (Statement stmt = connection.createStatement();) {
-
+    @Override
+    public void create(String tableName, DataSet input) {
+        try (Statement stmt = connection.createStatement()) {
             String tableNames = getNameFormatted(input, "%s,");
             String value = getValueFormatted(input, "'%s',");
 
@@ -97,25 +96,25 @@ public class DatabaseManager {
     }
 
     public String getValueFormatted(DataSet input, String format) {
-        String value = "";
+        StringBuilder value = new StringBuilder();
         for (Object values : input.getValues()) {
-            value += String.format(format, values);
+            value.append(String.format(format, values));
         }
-        value = value.substring(0, value.length() - 1);
-        return value;
+        value = new StringBuilder(value.substring(0, value.length() - 1));
+        return new String(value);
     }
 
     public String getNameFormatted(DataSet input, String format) {
-        String tableNames = "";
+        StringBuilder tableNames = new StringBuilder();
         for (String name : input.getNames()) {
-            tableNames += String.format(format, name);
+            tableNames.append(String.format(format, name));
         }
-        tableNames = tableNames.substring(0, tableNames.length() - 1);
-        return tableNames;
+        tableNames = new StringBuilder(tableNames.substring(0, tableNames.length() - 1));
+        return new String(tableNames);
     }
 
-    public void update(String tableName ,int id, DataSet newValue) {
-
+    @Override
+    public void update(String tableName, int id, DataSet newValue) {
         String tableNames = getNameFormatted(newValue, "%s = ?,");
 
         try (PreparedStatement pstmt = connection.prepareStatement("UPDATE public." + tableName
@@ -126,12 +125,9 @@ public class DatabaseManager {
                 pstmt.setObject(index++, value);
             }
             pstmt.setObject(index, id);
-
             pstmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

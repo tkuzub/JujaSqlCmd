@@ -1,4 +1,4 @@
-package ua.com.juja.sqlcmd;
+package ua.com.juja.sqlcmd.model;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,16 +7,18 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class DatabaseManagerTest {
+public abstract class DatabaseManagerTest {
 	private DatabaseManager manager;
+
+    protected abstract DatabaseManager getDatabaseManager();
 
 	@Before
 	public void setup() {
-		manager = new DatabaseManager();
+		manager = getDatabaseManager();
 		manager.connect("sqlcmd_db", "postgres", "777");
 	}
 
-	@Test
+    @Test
 	public void testGetAllTableName() {
 		String[] tableNames = manager.getTableNames();
 		assertEquals("[user_info, test]", Arrays.toString(tableNames));
