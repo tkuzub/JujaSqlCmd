@@ -1,14 +1,22 @@
 package ua.com.juja.sqlcmd.controller;
 
 import ua.com.juja.sqlcmd.model.DatabaseManager;
-import ua.com.juja.sqlcmd.model.JDBCDatabaseManager;
-import ua.com.juja.sqlcmd.view.Console;
 import ua.com.juja.sqlcmd.view.View;
 
 public class MainController {
-    public static void main(String[] args) {
-        View view = new Console();
-        DatabaseManager manager = new JDBCDatabaseManager();
+    private View view;
+    private DatabaseManager manager;
+
+    public MainController(View view, DatabaseManager manager) {
+        this.view = view;
+        this.manager = manager;
+    }
+
+    public void run() {
+        connectToDB();
+    }
+
+    private void connectToDB() {
         view.write("Hello user!!!");
         view.write("Please enter the database name, username and password in the format databaseName|userName|password");
 
@@ -26,11 +34,10 @@ public class MainController {
             } catch (Exception e) {
                 String massage = e.getMessage();
                 if (e.getCause() != null) {
-                massage += " " + e.getCause().getMessage();
+                    massage += " " + e.getCause().getMessage();
                 }
                 view.write("FAIL for a cause " + massage);
                 view.write("Try again!!!");
-
             }
         }
         view.write("Success!!!");
