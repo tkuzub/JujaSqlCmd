@@ -24,18 +24,27 @@ public class MainController {
                 doTables();
             } else if (command.equals("help")) {
                 doHelp();
+            } else if (command.equals("exit")) {
+                doExit();
             } else {
                 view.write("non-existent command!!!");
             }
         }
     }
 
+    private void doExit() {
+        view.write("Good bay!!!");
+        System.exit(0);
+    }
+
     private void doHelp() {
         view.write("Existing teams: ");
-        view.write("\ttables");
-        view.write("\t\tshow a list of all tables of the database to which they are connected");
         view.write("\thelp");
         view.write("\t\tfor to display all existing commands on the screen");
+        view.write("\ttables");
+        view.write("\t\tshow a list of all tables of the database to which they are connected");
+        view.write("\texit");
+        view.write("\t\tfor exit with database");
     }
 
     private void doTables() {
