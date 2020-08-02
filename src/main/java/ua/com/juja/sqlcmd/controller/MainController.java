@@ -18,7 +18,8 @@ public class MainController {
         this.commands = new Command[]{
                 new Tables(manager, view),
                 new Help(view),
-                new Exit(view)};
+                new Exit(view),
+                new Find(manager, view)};
     }
 
     public void run() {
@@ -33,47 +34,12 @@ public class MainController {
                 commands[1].process(command);
             } else if (commands[2].canProcess(command)) {
                 commands[2].process(command);
-            } else if (command.startsWith("find|")) {
-                doFind(command);
+            } else if (commands[3].canProcess(command)) {
+                commands[3].process(command);
             } else {
                 view.write("non-existent command!!!");
             }
         }
-    }
-
-    private void doFind(String command) {
-        String[] data = command.split("\\|");
-        String tableName = data[1];
-
-        DataSet[] tableData = manager.getTableData(tableName);
-        String[] tableColumns = manager.getTableColumns(tableName);
-        view.write("===================");
-        printHeader(tableColumns);
-        view.write("===================");
-        printTable(tableData);
-    }
-
-    private void printTable(DataSet[] tableData) {
-        for (DataSet row : tableData) {
-            printRow(row);
-        }
-    }
-
-    private void printRow(DataSet row) {
-        Object[] values = row.getValues();
-        StringBuilder result = new StringBuilder("|");
-        for (Object value : values) {
-            result.append(value).append("|");
-        }
-        view.write(result.toString());
-    }
-
-    private void printHeader(String[] tableColumns) {
-        StringBuilder result = new StringBuilder("|");
-        for (String name : tableColumns) {
-            result.append(name).append("|");
-        }
-        view.write(result.toString());
     }
 
     private void connectToDB() {
