@@ -7,17 +7,18 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-import java.util.Arrays;
-
 public class MainController {
-    private View view;
-    private DatabaseManager manager;
-    private Command[] commands;
+    private final View view;
+    private final DatabaseManager manager;
+    private final Command[] commands;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
-        this.commands = new Command[]{new Exit(view), new Help(view)};
+        this.commands = new Command[]{
+                new Tables(manager, view),
+                new Help(view),
+                new Exit(view)};
     }
 
     public void run() {
@@ -26,14 +27,14 @@ public class MainController {
             view.write("Enter an existing command (or command 'help' for help)");
             String command = view.read();
 
-            if (command.equals("tables")) {
-                doTables();
+            if (commands[0].canProcess(command)) {
+                commands[0].process(command);
             } else if (commands[1].canProcess(command)) {
                 commands[1].process(command);
+            } else if (commands[2].canProcess(command)) {
+                commands[2].process(command);
             } else if (command.startsWith("find|")) {
                 doFind(command);
-            } else if (commands[0].canProcess(command)) {
-                commands[0].process(command);
             } else {
                 view.write("non-existent command!!!");
             }
@@ -53,7 +54,6 @@ public class MainController {
     }
 
     private void printTable(DataSet[] tableData) {
-
         for (DataSet row : tableData) {
             printRow(row);
         }
@@ -74,12 +74,6 @@ public class MainController {
             result.append(name).append("|");
         }
         view.write(result.toString());
-    }
-
-    private void doTables() {
-        String[] tableNames = manager.getTableNames();
-        String message = Arrays.toString(tableNames);
-        view.write(message);
     }
 
     private void connectToDB() {
