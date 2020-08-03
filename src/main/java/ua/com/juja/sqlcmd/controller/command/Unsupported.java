@@ -1,6 +1,5 @@
-package ua.com.juja.sqlcmd.controller;
+package ua.com.juja.sqlcmd.controller.command;
 
-import ua.com.juja.sqlcmd.controller.command.Command;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Unsupported implements Command {
