@@ -4,6 +4,7 @@ import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Connect implements Command {
+    public static final String COMMAND_SAMPLE = "connect|sqlcmd_db|postgres|777";
     private final DatabaseManager manager;
     private final View view;
 
@@ -21,9 +22,11 @@ public class Connect implements Command {
     public void process(String command) {
         try {
             String[] data = command.split("\\|");
-            if (data.length != 4) {
-                throw new IllegalArgumentException(
-                        "incorrect number of entered parameters separated by '|' expected 4, but entered " + data.length);
+            if (data.length != count()) {
+                throw new IllegalArgumentException(String.format(
+                        "incorrect number of entered parameters separated by '|' expected %s, " +
+                                "but entered %s", count(), data.length)
+                );
             }
             String databaseName = data[1];
             String userName = data[2];
@@ -34,6 +37,10 @@ public class Connect implements Command {
         } catch (Exception e) {
             printError(e);
         }
+    }
+
+    public int count() {
+        return COMMAND_SAMPLE.split("\\|").length;
     }
 
 
