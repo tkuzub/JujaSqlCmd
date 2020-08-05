@@ -25,6 +25,8 @@ public class Help implements Command {
         view.write("\t\t-show a list of all tables of the database to which they are connected");
         view.write("\tfind|tableName");
         view.write("\t\t-to get the contents of the table 'tableName'");
+        view.write("\tclear|tableName");
+        view.write("\t\t-to clear all data from the 'tableName'");
         view.write("\texit");
         view.write("\t\t-for exit with database");
     }

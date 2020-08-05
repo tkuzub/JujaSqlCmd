@@ -80,4 +80,28 @@ public abstract class DatabaseManagerTest {
     public void testIsConnected() {
         assertTrue(manager.isConnected());
     }
+
+    @Test
+    public void testClearTableName() {
+        //given
+        manager.clear("user_info");
+        DataSet input = new DataSet();
+        input.put("id", 13);
+        input.put("name", "Stiven Pupkin");
+        input.put("password", "password");
+
+        manager.create("user_info", input);
+        DataSet[] users = manager.getTableData("user_info");
+
+        assertEquals(1, users.length);
+        DataSet user = users[0];
+        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
+        assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user.getValues()));
+
+        //then
+        manager.clear("user_info");
+        DataSet[] dataAfterClear = manager.getTableData("user_info");
+        //when
+        assertEquals(0, dataAfterClear.length);
+    }
 }
