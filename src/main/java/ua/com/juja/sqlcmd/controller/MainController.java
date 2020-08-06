@@ -18,6 +18,7 @@ public class MainController {
                 new Clear(manager, view),
                 new Tables(manager, view),
                 new Find(manager, view),
+                new Drop(manager,view),
                 new Unsupported(view)};
     }
 

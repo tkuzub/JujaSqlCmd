@@ -152,4 +152,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public boolean isConnected() {
         return connection != null;
     }
+
+    @Override
+    public void drop(String tableName) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("DROP TABLE IF EXISTS " + tableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

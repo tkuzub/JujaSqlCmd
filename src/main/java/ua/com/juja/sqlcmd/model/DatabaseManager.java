@@ -16,4 +16,6 @@ public interface DatabaseManager {
     String[] getTableColumns(String tableName);
 
     boolean isConnected();
+
+    void drop(String tableName);
 }

@@ -62,4 +62,9 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     public boolean isConnected() {
         return true;
     }
+
+    @Override
+    public void drop(String tableName) {
+        //do noting
+    }
 }
