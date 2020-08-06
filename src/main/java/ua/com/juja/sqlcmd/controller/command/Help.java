@@ -30,6 +30,9 @@ public class Help implements Command {
         view.write("\tfind|tableName");
         view.write("\t\t-to get the contents of the table 'tableName'");
 
+        view.write("\tinsert|tableName|column1|value1|column2|value2|...|columnN|valueN");
+        view.write("\t\t-to insert one row into a given 'tableName'");
+
         view.write("\tclear|tableName");
         view.write("\t\t-to clear all data from the 'tableName'");
 
