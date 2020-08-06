@@ -9,7 +9,7 @@ public interface DatabaseManager {
 
     void clear(String tableName);
 
-    void create(String tableName, DataSet input);
+    void insert(String tableName, DataSet input);
 
     void update(String tableName, int id, DataSet newValue);
 

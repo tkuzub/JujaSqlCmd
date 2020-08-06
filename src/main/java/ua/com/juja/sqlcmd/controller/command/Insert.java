@@ -35,7 +35,7 @@ public class Insert implements Command {
             String value = data[index * 2 + 1];
             input.put(column, value);
         }
-        manager.create(tableName, input);
+        manager.insert(tableName, input);
 
         view.write(String.format("new data has been added to the '%s' ", tableName));
     }

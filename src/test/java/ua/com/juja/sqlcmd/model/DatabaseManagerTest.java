@@ -34,7 +34,7 @@ public abstract class DatabaseManagerTest {
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
-        manager.create("user_info", input);
+        manager.insert("user_info", input);
         //then
         DataSet[] users = manager.getTableData("user_info");
         assertEquals(1, users.length);
@@ -52,7 +52,7 @@ public abstract class DatabaseManagerTest {
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
-        manager.create("user_info", input);
+        manager.insert("user_info", input);
         //when
         DataSet newValue = new DataSet();
         newValue.put("password", "pass2");
@@ -90,7 +90,7 @@ public abstract class DatabaseManagerTest {
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
 
-        manager.create("user_info", input);
+        manager.insert("user_info", input);
         DataSet[] users = manager.getTableData("user_info");
 
         assertEquals(1, users.length);
