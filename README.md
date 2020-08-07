@@ -91,7 +91,8 @@
         
 * **update**
 
-        Описание: Команда обновит запись в указанной таблице, установив значение column1 = value1, ..., columnN = valueN для которых соблюдается условие column = value
+        Описание: Команда обновит запись, установив значение column2 = value2, 
+        для которой соблюдается условие column1 = value1
 
         Формат ввода: update|tableName|column1|value1|column2|value2
             tableName - имя таблицы
