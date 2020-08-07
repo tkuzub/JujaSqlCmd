@@ -33,6 +33,9 @@ public class Help implements Command {
         view.write("\tinsert|tableName|column1|value1|column2|value2|...|columnN|valueN");
         view.write("\t\t-to insert one row into a given 'tableName'");
 
+        view.write("\tupdate|tableName|column1|value1|column2|value2");
+        view.write("\t\t-to update the entry in the specified table by setting the value");
+
         view.write("\tclear|tableName");
         view.write("\t\t-to clear all data from the 'tableName'");
 

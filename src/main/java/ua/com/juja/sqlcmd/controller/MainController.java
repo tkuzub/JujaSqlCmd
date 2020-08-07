@@ -16,6 +16,7 @@ public class MainController {
                 new Exit(view),
                 new IsConnected(manager, view),
                 new Insert(manager, view),
+                new Update(manager, view),
                 new Clear(manager, view),
                 new Tables(manager, view),
                 new Find(manager, view),

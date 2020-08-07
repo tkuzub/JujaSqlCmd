@@ -43,7 +43,6 @@ public class Connect implements Command {
         return COMMAND_SAMPLE.split("\\|").length;
     }
 
-
     private void printError(Exception e) {
         String massage = e.getMessage();
         if (e.getCause() != null) {
