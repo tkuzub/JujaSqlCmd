@@ -27,6 +27,9 @@ public class Help implements Command {
         view.write("\ttables");
         view.write("\t\t-show a list of all tables of the database to which they are connected");
 
+        view.write("\tcreate|tableName|column1|column2|...|columnN");
+        view.write("\t\t-the command creates a new table with the given fields");
+
         view.write("\tfind|tableName");
         view.write("\t\t-to get the contents of the table 'tableName'");
 

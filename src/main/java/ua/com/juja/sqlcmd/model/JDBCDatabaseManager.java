@@ -161,4 +161,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void create(String tableName) {
+        try (PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName +
+                "(user_id SERIAL PRIMARY KEY,username varchar(225) ,password varchar(225))")) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

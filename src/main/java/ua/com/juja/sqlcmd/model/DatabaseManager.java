@@ -18,4 +18,6 @@ public interface DatabaseManager {
     boolean isConnected();
 
     void drop(String tableName);
+
+    void create(String datum);
 }

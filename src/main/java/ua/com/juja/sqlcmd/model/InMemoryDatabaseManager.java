@@ -67,4 +67,9 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     public void drop(String tableName) {
         //do noting
     }
+
+    @Override
+    public void create(String tableName) {
+        //do nothing
+    }
 }
