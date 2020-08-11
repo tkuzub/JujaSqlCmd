@@ -39,6 +39,9 @@ public class Help implements Command {
         view.write("\tupdate|tableName|column1|value1|column2|value2");
         view.write("\t\t-to update the entry in the specified table by setting the value");
 
+        view.write("\tdelete|tableName|column|value");
+        view.write("\t\t-to deletes one or more records in the table for which the column = value condition is met");
+
         view.write("\tclear|tableName");
         view.write("\t\t-to clear all data from the 'tableName'");
 

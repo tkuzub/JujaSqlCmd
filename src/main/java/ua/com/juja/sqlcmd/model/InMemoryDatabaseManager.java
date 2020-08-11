@@ -73,4 +73,9 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     public void create(String tableName, List<String> input) {
         //do nothing
     }
+
+    @Override
+    public void delete(String tableName, DataSet input) {
+        //do nothing
+    }
 }

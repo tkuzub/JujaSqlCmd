@@ -132,6 +132,21 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
+    public void delete(String tableName, DataSet input) {
+        String tableNames = getNameFormatted(input, "%s = ?,");
+        try(PreparedStatement pstmt = connection.prepareStatement(
+                "DELETE FROM "  + tableName +" WHERE " + tableNames +" = ?")) {
+            int index = 1;
+            for (Object value : input.getValues()) {
+                pstmt.setObject(index++, value);
+            }
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public String[] getTableColumns(String tableName) {
         try (Statement st = connection.createStatement();
              ResultSet rs = st.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public'" +

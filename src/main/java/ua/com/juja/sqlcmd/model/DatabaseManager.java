@@ -22,4 +22,6 @@ public interface DatabaseManager {
     void drop(String tableName);
 
     void create(String tableName, List<String> input);
+
+    void delete(String tableName, DataSet input);
 }
