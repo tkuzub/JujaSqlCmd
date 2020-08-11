@@ -1,5 +1,7 @@
 package ua.com.juja.sqlcmd.model;
 
+import java.util.List;
+
 public interface DatabaseManager {
     DataSet[] getTableData(String tableName);
 
@@ -19,5 +21,5 @@ public interface DatabaseManager {
 
     void drop(String tableName);
 
-    void create(String datum);
+    void create(String tableName, List<String> input);
 }

@@ -1,6 +1,7 @@
 package ua.com.juja.sqlcmd.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class InMemoryDatabaseManager implements DatabaseManager {
     public static final String TABLE_NAME = "user_info";
@@ -69,7 +70,7 @@ public class InMemoryDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void create(String tableName) {
+    public void create(String tableName, List<String> input) {
         //do nothing
     }
 }

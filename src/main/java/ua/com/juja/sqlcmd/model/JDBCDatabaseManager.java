@@ -163,10 +163,10 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void create(String tableName) {
-        try (PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + tableName +
-                "(user_id SERIAL PRIMARY KEY,username varchar(225) ,password varchar(225))")) {
-            statement.executeUpdate();
+    public void create(String tableName, List<String> input) {
+        String columnsName = String.join(", ", input);
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName, columnsName));
         } catch (SQLException e) {
             e.printStackTrace();
         }
