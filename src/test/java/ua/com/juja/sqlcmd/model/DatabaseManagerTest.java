@@ -67,6 +67,42 @@ public abstract class DatabaseManagerTest {
     }
 
     @Test
+    public void testDeleteEntryFromTable() {
+        //given
+        manager.clear("user_info");
+        DataSet input = new DataSet();
+        input.put("id", 13);
+        input.put("name", "Stiven Pupkin");
+        input.put("password", "password");
+        manager.insert("user_info", input);
+
+        input.put("id", 14);
+        input.put("name", "Bob Jons");
+        input.put("password", "anaconda");
+        manager.insert("user_info", input);
+
+        DataSet[] users = manager.getTableData("user_info");
+        assertEquals(2, users.length);
+
+        DataSet user1 = users[0];
+        assertEquals("[id, name, password]", Arrays.toString(user1.getNames()));
+        assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user1.getValues()));
+
+        DataSet user2 = users[1];
+        assertEquals("[id, name, password]", Arrays.toString(user2.getNames()));
+        assertEquals("[14, Bob Jons, anaconda]", Arrays.toString(user2.getValues()));
+
+        //when
+        DataSet deleteData = new DataSet();
+        deleteData.put("name", "Bob Jons");
+
+        //then
+        manager.delete("user_info", deleteData);
+        users = manager.getTableData("user_info");
+        assertEquals(1, users.length);
+    }
+
+    @Test
     public void testGetTableColumns() {
         //given
         manager.clear("user_info");

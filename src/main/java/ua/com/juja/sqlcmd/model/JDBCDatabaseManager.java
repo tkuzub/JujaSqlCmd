@@ -133,12 +133,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void delete(String tableName, DataSet input) {
-        String tableNames = getNameFormatted(input, "%s = ?,");
+        String tableNames = getNameFormatted(input, "%s,");
         try(PreparedStatement pstmt = connection.prepareStatement(
                 "DELETE FROM "  + tableName +" WHERE " + tableNames +" = ?")) {
+
             int index = 1;
-            for (Object value : input.getValues()) {
-                pstmt.setObject(index++, value);
+            for (Object values : input.getValues()) {
+                pstmt.setObject(index, values);
             }
             pstmt.executeUpdate();
         } catch (SQLException e) {
