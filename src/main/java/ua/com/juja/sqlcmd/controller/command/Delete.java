@@ -23,12 +23,50 @@ public class Delete implements Command {
         String[] data = command.split("\\|");
         if (data.length % 2 != 0) {
             throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
-                    "expected 'update|tableName|column1|value1|column2|value2'" +
+                    "expected 'delete|tableName|column|value'" +
                     " but you entered " + command);
         }
         String tableName = data[1];
-        DataSet input = new DataSet();
+        DataSet deleteData = new DataSet();
 
-        manager.delete(tableName, input);
+        String columnName = data[2];
+        String value = data[3];
+
+        if (columnName.equals("id")) {
+            int valueInt = Integer.parseInt(value);
+            deleteData.put(columnName, valueInt);
+        }
+        manager.delete(tableName, deleteData);
+
+        String[] tableColumns = manager.getTableColumns(tableName);
+        DataSet[] tableData = manager.getTableData(tableName);
+
+        view.write("===================");
+        printHeader(tableColumns);
+        view.write("===================");
+        printTable(tableData);
+    }
+
+    private void printHeader(String[] tableColumns) {
+        StringBuilder result = new StringBuilder("|");
+        for (String columnsName : tableColumns) {
+            result.append(columnsName).append("|");
+        }
+        view.write(result.toString());
+    }
+
+    private void printTable(DataSet[] tableData) {
+        for (DataSet data : tableData) {
+            printRow(data);
+        }
+    }
+
+    private void printRow(DataSet data) {
+        Object[] values = data.getValues();
+        StringBuilder result = new StringBuilder("|");
+        for(Object value : values) {
+            result.append(value).append("|");
+        }
+        view.write(result.toString());
     }
 }
