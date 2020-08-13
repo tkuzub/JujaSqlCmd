@@ -22,21 +22,31 @@ public class Update implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
         String tableName = data[1];
-        int id = Integer.parseInt(data[3]);
+
         DataSet newValue = new DataSet();
+        DataSet checkData = new DataSet();
         if (data.length % 2 != 0) {
             throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
                     "expected 'update|tableName|column1|value1|column2|value2'" +
                     " but you entered " + command);
         }
 
+        String columnName = data[2];
+        String value = data[3];
+        if (columnName.equals("id")) {
+            int valueInt = Integer.parseInt(value);
+            checkData.put(columnName, valueInt);
+        } else {
+            checkData.put(columnName, value);
+        }
+
         for (int index = 4; index < data.length; index += 2) {
-            String columnName = data[index];
-            String value = data[index + 1];
+            columnName = data[index];
+            value = data[index + 1];
             newValue.put(columnName, value);
         }
 
-        manager.update(tableName, id, newValue);
+        manager.update(tableName, checkData, newValue);
 
         String[] tableColumns = manager.getTableColumns(tableName);
         DataSet[] tableData = manager.getTableData(tableName);

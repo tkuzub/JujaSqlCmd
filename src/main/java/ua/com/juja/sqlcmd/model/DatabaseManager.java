@@ -13,7 +13,7 @@ public interface DatabaseManager {
 
     void insert(String tableName, DataSet input);
 
-    void update(String tableName, int id, DataSet newValue);
+    void update(String tableName, DataSet checkData, DataSet newValue);
 
     String[] getTableColumns(String tableName);
 

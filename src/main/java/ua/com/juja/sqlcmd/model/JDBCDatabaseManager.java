@@ -114,20 +114,26 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void update(String tableName, int id, DataSet newValue) {
+    public void update(String tableName, DataSet checkData, DataSet newValue) {
         String tableNames = getNameFormatted(newValue, "%s = ?,");
+        String tableCheck = getNameFormatted(checkData, "%s = ?,");
 
         try (PreparedStatement pstmt = connection.prepareStatement("UPDATE public." + tableName
                 + " SET " + tableNames
-                + "WHERE id = ?")){
-            int index = 1;
-            for (Object value : newValue.getValues()) {
-                pstmt.setObject(index++, value);
-            }
-            pstmt.setObject(index, id);
+                + "WHERE " + tableCheck)){
+
+            setValues(newValue, pstmt, 1);
+            setValues(checkData, pstmt, 2);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void setValues(DataSet newValue, PreparedStatement pstmt, int i) throws SQLException {
+        for (Object value : newValue.getValues()) {
+            pstmt.setObject(i, value);
         }
     }
 
@@ -137,10 +143,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         try(PreparedStatement pstmt = connection.prepareStatement(
                 "DELETE FROM "  + tableName +" WHERE " + tableNames +" = ?")) {
 
-            int index = 1;
-            for (Object values : input.getValues()) {
-                pstmt.setObject(index, values);
-            }
+            setValues(input, pstmt, 1);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

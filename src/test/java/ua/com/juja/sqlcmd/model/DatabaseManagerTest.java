@@ -56,7 +56,10 @@ public abstract class DatabaseManagerTest {
         //when
         DataSet newValue = new DataSet();
         newValue.put("password", "pass2");
-        manager.update("user_info", 13, newValue);
+
+        DataSet checkData = new DataSet();
+        checkData.put("id", 13);
+        manager.update("user_info", checkData, newValue);
         //then
         DataSet[] users = manager.getTableData("user_info");
         assertEquals(1, users.length);
