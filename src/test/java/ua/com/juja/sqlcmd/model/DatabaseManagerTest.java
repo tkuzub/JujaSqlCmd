@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -103,6 +104,24 @@ public abstract class DatabaseManagerTest {
         manager.delete("user_info", deleteData);
         users = manager.getTableData("user_info");
         assertEquals(1, users.length);
+    }
+
+    @Test
+    public void testCreateTable() {
+        //given
+        List<String> input = Arrays.asList("id", "name", "password");
+        String tableName = "some_table";
+        //when
+        manager.create(tableName, input);
+        //then
+        String[] tableNames = manager.getTableNames();
+        assertEquals("[user_info, test, some_table]", Arrays.toString(tableNames));
+
+        String[] tableColumns = manager.getTableColumns(tableName);
+        assertEquals("[id, name, password]", Arrays.toString(tableColumns));
+
+        //delete table after create
+        manager.drop(tableName);
     }
 
     @Test
