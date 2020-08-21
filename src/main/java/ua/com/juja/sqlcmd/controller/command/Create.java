@@ -24,11 +24,11 @@ public class Create implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-//        if (data.length % 2 != 0) {
-//            throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
-//                    "expected 'create|tableName|column1|column2|...|columnN'" +
-//                    " but you entered " + command);
-//        }
+        if (data.length % 2 != 0) {
+            throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
+                    "expected 'create|tableName|column1|columnValue1|column2|columnValue2|...|columnN|columnValueN'" +
+                    " but you entered " + command);
+        }
         String tableName = data[1];
         List<String> input = new LinkedList<>();
         for (int index = 2; index < data.length; index++) {

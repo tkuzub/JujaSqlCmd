@@ -131,9 +131,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
         }
     }
 
-    public void setValues(DataSet newValue, PreparedStatement pstmt, int i) throws SQLException {
+    public void setValues(DataSet newValue, PreparedStatement pstmt, int index) throws SQLException {
         for (Object value : newValue.getValues()) {
-            pstmt.setObject(i, value);
+            pstmt.setObject(index, value);
         }
     }
 
@@ -185,7 +185,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void create(String tableName, List<String> input) {
         String columnsName = String.join(", ", input);
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate(String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName, columnsName));
+            stmt.executeUpdate("Create Table IF NOT EXISTS some_table(id int, name varchar, password text); ");
         } catch (SQLException e) {
             e.printStackTrace();
         }
