@@ -1,6 +1,7 @@
-package ua.com.juja.sqlcmd.controller;
+package ua.com.juja.sqlcmd.controller.launcher;
 
 import ua.com.juja.sqlcmd.controller.command.*;
+import ua.com.juja.sqlcmd.controller.exception.ExitException;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -27,19 +28,45 @@ public class MainController {
     }
 
     public void run() {
+        try {
+            doWork();
+        } catch (ExitException e) {
+            //do nothing
+        }
+    }
+
+    public void doWork() {
         view.write("Hello user!!!");
         view.write("Please enter the database name, " +
                 "username and password in the format connect|databaseName|userName|password");
 
         while (true) {
             String input = view.read();
+
             for (Command command : commands) {
-                if (command.canProcess(input)) {
-                    command.process(input);
+                try {
+                    if (command.canProcess(input)) {
+                        command.process(input);
+                        break;
+                    }
+                } catch (Exception e) {
+                    if (e instanceof ExitException) {
+                        throw e;
+                    }
+                    printError(e);
                     break;
                 }
             }
             view.write("Enter an existing command (or command 'help' for help)");
         }
+    }
+
+    private void printError(Exception e) {
+        String message = e.getMessage();
+        if (e.getCause() != null) {
+            message += " " + e.getCause().getMessage();
+        }
+        view.write("Не удача по пречине: " + message);
+        view.write("Повтори попытку!!!");
     }
 }
