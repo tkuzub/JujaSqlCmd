@@ -1,4 +1,4 @@
-package ua.com.juja.sqlcmd.controller;
+package ua.com.juja.sqlcmd.controller.launcher;
 
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.model.JDBCDatabaseManager;

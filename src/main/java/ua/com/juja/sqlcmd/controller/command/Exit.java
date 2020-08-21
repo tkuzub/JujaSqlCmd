@@ -1,5 +1,6 @@
 package ua.com.juja.sqlcmd.controller.command;
 
+import ua.com.juja.sqlcmd.controller.exception.ExitException;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Exit implements Command {
@@ -15,6 +16,6 @@ public class Exit implements Command {
 
     public void process(String command) {
         view.write("Good bay!!!");
-        System.exit(0);
+        throw new ExitException();
     }
 }
