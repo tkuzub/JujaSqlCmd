@@ -57,11 +57,14 @@
 
         Описание: Команда создает новую таблицу с заданными полями
 
-        Формат: create|tableName|column1|column2|...|columnN
+        Формат: create|tableName|column1|columnValue1|column2|columnValue2|...|columnN|columnValueN
             где: tableName - имя таблицы
             column1 - имя первого столбца записи
+            columnValue1 - тип данных столбца
             column2 - имя второго столбца записи
+            columnValue2 - тип данных столбца
             columnN - имя n-го столбца записи
+            columnValueN - тип данных столбца
 
         Формат вывода: текстовое сообщение с результатом выполнения операции
         
