@@ -126,6 +126,71 @@ public class IntegrationTest {
                 "Good bay!!!\r\n", getData());
     }
 
+    @Test
+    public void testUnsupportedAfterConnect() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("unsupported");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //unsupported
+                "non-existent command 'unsupported'\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testTablesAfterConnect() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("tables");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //tables
+                "[user_info, test]\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testFindAfterConnect() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("find|user_info");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //find|user_info
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
     private String getData() {
         return new String(out.toByteArray(), StandardCharsets.UTF_8);
     }
