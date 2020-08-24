@@ -32,6 +32,7 @@ public class IntegrationTest {
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //exit
                 "Good bay!!!\r\n", getData());
     }
 
@@ -40,10 +41,8 @@ public class IntegrationTest {
         //given
         in.add("help");
         in.add("exit");
-
         //when
         Main.main(new String[0]);
-
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -73,6 +72,57 @@ public class IntegrationTest {
                 "\texit\r\n" +
                 "\t\t-for exit with database\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testTablesWithoutConnect() {
+        //given
+        in.add("tables");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //tables
+                "You cannot use the command 'tables', until you connect to the database in the format connect|databaseName|userName|password\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testFindWithoutConnect() {
+        //given
+        in.add("find|user_info");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //find|user_info
+                "You cannot use the command 'find|user_info', until you connect to the database in the format connect|databaseName|userName|password\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testUnsupportedWithoutConnect() {
+        //given
+        in.add("unsupported");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //unsupported
+                "You cannot use the command 'unsupported', until you connect to the database in the format connect|databaseName|userName|password\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
                 "Good bay!!!\r\n", getData());
     }
 
