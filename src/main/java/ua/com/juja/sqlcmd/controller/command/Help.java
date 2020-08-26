@@ -29,6 +29,7 @@ public class Help implements Command {
 
         view.write("\tcreate|tableName|column1|column2|...|columnN");
         view.write("\t\t-the command creates a new table with the given fields");
+        view.write("\t\t-this automatically creates an id column with autoincrement");
 
         view.write("\tfind|tableName");
         view.write("\t\t-to get the contents of the table 'tableName'");
