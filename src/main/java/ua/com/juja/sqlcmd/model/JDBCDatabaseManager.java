@@ -183,9 +183,16 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void create(String tableName, List<String> input) {
-        String columnsName = String.join(", ", input);
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("Create Table IF NOT EXISTS some_table(id int, name varchar, password text); ");
+            String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + " (ID SERIAL PRIMARY KEY,";
+            String textNameColumn = "";
+            for (String columnsName : input) {
+                textNameColumn += " " + columnsName + " TEXT NOT NULL,";
+            }
+            textNameColumn = textNameColumn.substring(0, textNameColumn.length() - 1);
+            sqlCreate += textNameColumn + ")";
+
+            stmt.executeUpdate(sqlCreate);
         } catch (SQLException e) {
             e.printStackTrace();
         }

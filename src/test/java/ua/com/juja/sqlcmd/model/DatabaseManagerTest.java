@@ -109,7 +109,7 @@ public abstract class DatabaseManagerTest {
     @Test
     public void testCreateTable() {
         //given
-        List<String> input = Arrays.asList("id", "name", "password");
+        List<String> input = Arrays.asList("name", "password");
         String tableName = "some_table";
         //when
         manager.create(tableName, input);
