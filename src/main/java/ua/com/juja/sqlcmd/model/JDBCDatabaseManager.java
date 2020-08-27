@@ -78,7 +78,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE from public." + tableName);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -91,7 +91,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             stmt.executeUpdate("INSERT INTO public." + tableName + "(" + tableNames + ")"
                     + "VALUES (" + value + ")");
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -127,7 +127,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -146,7 +146,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             setValues(input, pstmt, 1);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -175,9 +175,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public void drop(String tableName) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DROP TABLE IF EXISTS " + tableName);
+            statement.executeUpdate("DROP TABLE " + tableName);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -185,16 +185,16 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void create(String tableName, List<String> input) {
         try (Statement stmt = connection.createStatement()) {
             String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + " (ID SERIAL PRIMARY KEY,";
-            String textNameColumn = "";
+            StringBuilder textNameColumn = new StringBuilder();
             for (String columnsName : input) {
-                textNameColumn += " " + columnsName + " TEXT NOT NULL,";
+                textNameColumn.append(" ").append(columnsName).append(" TEXT NOT NULL,");
             }
-            textNameColumn = textNameColumn.substring(0, textNameColumn.length() - 1);
+            textNameColumn = new StringBuilder(textNameColumn.substring(0, textNameColumn.length() - 1));
             sqlCreate += textNameColumn + ")";
 
             stmt.executeUpdate(sqlCreate);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

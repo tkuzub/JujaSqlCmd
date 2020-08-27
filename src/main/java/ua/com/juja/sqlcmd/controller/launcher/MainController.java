@@ -66,7 +66,7 @@ public class MainController {
         if (e.getCause() != null) {
             message += " " + e.getCause().getMessage();
         }
-        view.write("Не удача по пречине: " + message);
-        view.write("Повтори попытку!!!");
+        view.write("Failure for a reason: " + message);
+        view.write("Try again!!!");
     }
 }
