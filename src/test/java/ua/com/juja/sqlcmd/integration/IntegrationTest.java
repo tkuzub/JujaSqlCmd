@@ -56,6 +56,7 @@ public class IntegrationTest {
                 "\t\t-show a list of all tables of the database to which they are connected\r\n" +
                 "\tcreate|tableName|column1|column2|...|columnN\r\n" +
                 "\t\t-the command creates a new table with the given fields\r\n" +
+                "\t\t-this automatically creates an id column with autoincrement\r\n" +
                 "\tfind|tableName\r\n" +
                 "\t\t-to get the contents of the table 'tableName'\r\n" +
                 "\tinsert|tableName|column1|value1|column2|value2|...|columnN|valueN\r\n" +
@@ -172,6 +173,7 @@ public class IntegrationTest {
     public void testFindAfterConnect() {
         //given
         in.add("connect|sqlcmd_db|postgres|777");
+        in.add("clear|user_info");
         in.add("find|user_info");
         in.add("exit");
         //when
@@ -181,6 +183,9 @@ public class IntegrationTest {
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
                 //connect
                 "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //clear
+                "the table is completely cleared of data\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //find|user_info
                 "===================\r\n" +
@@ -215,6 +220,267 @@ public class IntegrationTest {
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //tables
                 "[qwerty]\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testConnect_withError() {
+        //given
+        in.add("connect|sqlcmd_db");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "FAIL for a cause incorrect number of entered parameters separated by '|' expected 4, but entered 2\r\n" +
+                "Try again!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testFindAfterConnect_withData() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("clear|user_info");
+        in.add("insert|user_info|id|100|name|do_nothing|password|+++++");
+        in.add("find|user_info");
+        in.add("clear|user_info");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //clear
+                "the table is completely cleared of data\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //insert
+                "new data has been added to the 'user_info' \r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //find
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "|100|do_nothing|+++++|\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //clear
+                "the table is completely cleared of data\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testDropAfterConnect() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("create|some_table|name|password");
+        in.add("tables");
+        in.add("drop|some_table");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //create|some_table
+                "the table 'some_table' was created successfully\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //tables
+                "[user_info, test, some_table]\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //drop|some_table
+                "the table 'some_table' was deleted successfully\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateAndDeleteAfterConnect_withData() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("clear|user_info");
+        in.add("insert|user_info|id|100|name|do_nothing|password|+++++");
+        in.add("find|user_info");
+        in.add("update|user_info|id|100|name|jon");
+        in.add("delete|user_info|name|jon");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //clear
+                "the table is completely cleared of data\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //insert
+                "new data has been added to the 'user_info' \r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //find
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "|100|do_nothing|+++++|\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //update
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "|100|jon|+++++|\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //delete
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteByIdAfterConnect_withData() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("clear|user_info");
+        in.add("insert|user_info|id|100|name|do_nothing|password|+++++");
+        in.add("insert|user_info|id|120|name|jon|password|-----");
+        in.add("find|user_info");
+
+        in.add("delete|user_info|id|100");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //clear
+                "the table is completely cleared of data\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //insert
+                "new data has been added to the 'user_info' \r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                "new data has been added to the 'user_info' \r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //find
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "|100|do_nothing|+++++|\r\n" +
+                "|120|jon|-----|\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+
+                //delete
+                "===================\r\n" +
+                "|id|name|password|\r\n" +
+                "===================\r\n" +
+                "|120|jon|-----|\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateAfterConnect_withError() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("create|some_table|name");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //create|some_table|name
+                "Failure for a reason: you entered the wrong number of parameters in the formatexpected 'create|tableName|column1|column2|...|columnN' but you entered create|some_table|name\r\n" +
+                "Try again!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteAfterConnect_withError() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("delete|some_table|name");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //delete|some_table|name
+                "Failure for a reason: you entered the wrong number of parameters in the formatexpected 'delete|tableName|column|value' but you entered delete|some_table|name\r\n" +
+                "Try again!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testInsertAfterConnect_withError() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("insert|some_table|name");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //insert|some_table|name
+                "Failure for a reason: you entered the wrong number of parameters in the formatexpected 'insert|tableName|column1|value1|column2|value2|...|columnN|valueN' but you entered insert|some_table|name\r\n" +
+                "Try again!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //exit
+                "Good bay!!!\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateAfterConnect_withError() {
+        //given
+        in.add("connect|sqlcmd_db|postgres|777");
+        in.add("update|some_table|name");
+        in.add("exit");
+        //when
+        Main.main(new String[0]);
+        //then
+        assertEquals("Hello user!!!\r\n" +
+                "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
+                //connect|sqlcmd_db
+                "Success!!!\r\n" +
+                "Enter an existing command (or command 'help' for help)\r\n" +
+                //update|some_table|name
+                "Failure for a reason: you entered the wrong number of parameters in the formatexpected 'update|tableName|column1|value1|column2|value2' but you entered update|some_table|name\r\n" +
+                "Try again!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //exit
                 "Good bay!!!\r\n", getData());
