@@ -35,6 +35,8 @@ public class Delete implements Command {
         if (columnName.equals("id")) {
             int valueInt = Integer.parseInt(value);
             deleteData.put(columnName, valueInt);
+        } else {
+            deleteData.put(columnName, value);
         }
         manager.delete(tableName, deleteData);
 

@@ -65,6 +65,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
             throw new RuntimeException("please add maven dependency in project", e);
         }
         try {
+            if (connection != null) {
+                connection.close();
+            }
             connection = DriverManager.getConnection("jdbc:postgresql://localhost/" + database, userName, password);
         } catch (SQLException e) {
             connection = null;
