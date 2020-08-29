@@ -7,7 +7,7 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class FindTest {
@@ -46,5 +46,53 @@ public class FindTest {
                 " ===================," +
                 " |10|jon|++++++|," +
                 " |11|bob|-----|]", captor.getAllValues().toString());
+    }
+
+    @Test
+    public void testCanProcessFindWithParametersString() {
+        //given
+        Command command = new Find(manager, view);
+        //when
+        boolean camProcess = command.canProcess("find|");
+        //then
+        assertTrue(camProcess);
+    }
+
+    @Test
+    public void testCanProcessFindWithoutParametersString() {
+        //given
+        Command command = new Find(manager, view);
+        //when
+        boolean camProcess = command.canProcess("find");
+        //then
+        assertFalse(camProcess);
+    }
+
+    @Test
+    public void testCanProcessQweString() {
+        //given
+        Command command = new Find(manager, view);
+        //when
+        boolean camProcess = command.canProcess("qwe|user_info");
+        //then
+        assertFalse(camProcess);
+    }
+
+    @Test
+    public void testPrintEmptyTableData() {
+        //given
+        Command command = new Find(manager, view);
+        when(manager.getTableColumns("user_info")).thenReturn(new String[]{"id", "name", "password"});
+        DataSet[] data = new DataSet[0];
+        when(manager.getTableData("user_info")).thenReturn(data);
+        //when
+        command.process("find|user_info");
+        //then
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(view, atLeastOnce()).write(captor.capture());
+        assertEquals("[===================," +
+                " |id|name|password|," +
+                " ===================]",
+                captor.getAllValues().toString());
     }
 }
