@@ -13,17 +13,18 @@ import static org.mockito.Mockito.*;
 public class FindTest {
     private View view;
     private DatabaseManager manager;
+    private Command command;
 
     @Before
     public void setup() {
         view = mock(View.class);
         manager = mock(DatabaseManager.class);
+        command = new Find(manager, view);
     }
 
     @Test
     public void testPrintTableData() {
         //given
-        Command command = new Find(manager, view);
         when(manager.getTableColumns("user_info")).thenReturn(new String[]{"id", "name", "password"});
         DataSet user1 = new DataSet();
         user1.put("id", 10);
@@ -39,19 +40,21 @@ public class FindTest {
         //when
         command.process("find|user_info");
         //then
+        shouldPrint("[===================," +
+                          " |id|name|password|," +
+                          " ===================," +
+                          " |10|jon|++++++|," +
+                          " |11|bob|-----|]");
+    }
+
+    public void shouldPrint(String expected) {
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(view, atLeastOnce()).write(captor.capture());
-        assertEquals("[===================," +
-                " |id|name|password|," +
-                " ===================," +
-                " |10|jon|++++++|," +
-                " |11|bob|-----|]", captor.getAllValues().toString());
+        assertEquals(expected, captor.getAllValues().toString());
     }
 
     @Test
     public void testCanProcessFindWithParametersString() {
-        //given
-        Command command = new Find(manager, view);
         //when
         boolean camProcess = command.canProcess("find|");
         //then
@@ -60,8 +63,6 @@ public class FindTest {
 
     @Test
     public void testCanProcessFindWithoutParametersString() {
-        //given
-        Command command = new Find(manager, view);
         //when
         boolean camProcess = command.canProcess("find");
         //then
@@ -70,8 +71,6 @@ public class FindTest {
 
     @Test
     public void testCanProcessQweString() {
-        //given
-        Command command = new Find(manager, view);
         //when
         boolean camProcess = command.canProcess("qwe|user_info");
         //then
@@ -80,19 +79,14 @@ public class FindTest {
 
     @Test
     public void testPrintEmptyTableData() {
-        //given
-        Command command = new Find(manager, view);
         when(manager.getTableColumns("user_info")).thenReturn(new String[]{"id", "name", "password"});
         DataSet[] data = new DataSet[0];
         when(manager.getTableData("user_info")).thenReturn(data);
         //when
         command.process("find|user_info");
         //then
-        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
-        verify(view, atLeastOnce()).write(captor.capture());
-        assertEquals("[===================," +
-                " |id|name|password|," +
-                " ===================]",
-                captor.getAllValues().toString());
+        shouldPrint("[===================," +
+                           " |id|name|password|," +
+                           " ===================]");
     }
 }
