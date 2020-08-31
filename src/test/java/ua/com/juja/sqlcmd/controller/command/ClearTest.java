@@ -5,8 +5,7 @@ import org.junit.Test;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -53,5 +52,25 @@ public class ClearTest {
         boolean camProcess = command.canProcess("qwe|user_info");
         //then
         assertFalse(camProcess);
+    }
+
+    @Test
+    public void testValidationErrorWhenCountParametersIsLessThen2() {
+        try {
+            command.process("clear");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("command format 'clear|tableName' but you entered: clear", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testValidationErrorWhenCountParametersIsMoreThen2() {
+        try {
+            command.process("clear|user_info|qwe");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("command format 'clear|tableName' but you entered: clear|user_info|qwe", e.getMessage());
+        }
     }
 }

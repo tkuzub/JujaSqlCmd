@@ -21,6 +21,9 @@ public class Clear implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
+        if (data.length != 2) {
+            throw new IllegalArgumentException("command format 'clear|tableName' but you entered: " + command);
+        }
         String tableName = data[1];
 
         manager.clear(tableName);
