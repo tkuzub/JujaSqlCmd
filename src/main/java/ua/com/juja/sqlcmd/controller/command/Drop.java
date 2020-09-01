@@ -20,6 +20,9 @@ public class Drop implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
+        if (data.length != 2) {
+            throw new IllegalArgumentException("command format 'drop|tableName' but you entered: " + command);
+        }
         String tableName = data[1];
 
         manager.drop(tableName);
