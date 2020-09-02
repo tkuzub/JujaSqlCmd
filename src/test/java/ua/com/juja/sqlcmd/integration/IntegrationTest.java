@@ -413,7 +413,7 @@ public class IntegrationTest {
                 "Success!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //create|some_table|name
-                "Failure for a reason: you entered the wrong number of parameters in the formatexpected 'create|tableName|column1|column2|...|columnN' but you entered create|some_table|name\r\n" +
+                "Failure for a reason: you entered the wrong number of parameters in the format expected 'create|tableName|column1|column2|...|columnN' but you entered create|some_table|name\r\n" +
                 "Try again!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //exit

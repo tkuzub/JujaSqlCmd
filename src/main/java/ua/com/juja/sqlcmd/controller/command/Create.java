@@ -25,7 +25,7 @@ public class Create implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
         if (data.length % 2 != 0) {
-            throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
+            throw new IllegalArgumentException("you entered the wrong number of parameters in the format " +
                     "expected 'create|tableName|column1|column2|...|columnN'" +
                     " but you entered " + command);
         }
