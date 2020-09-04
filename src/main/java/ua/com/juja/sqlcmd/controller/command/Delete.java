@@ -21,7 +21,7 @@ public class Delete implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-        if (data.length % 2 != 0) {
+        if (data.length  != 4) {
             throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
                     "expected 'delete|tableName|column|value'" +
                     " but you entered " + command);
