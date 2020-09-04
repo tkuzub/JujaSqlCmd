@@ -16,6 +16,10 @@ public class Help implements Command {
 
     @Override
     public void process(String command) {
+        String[] data = command.split("\\|");
+        if (data.length != 1) {
+            throw new IllegalArgumentException("command format 'help' but you entered: " + command);
+        }
         view.write("Existing teams: ");
 
         view.write("\tconnect|databaseName|userName|password");
