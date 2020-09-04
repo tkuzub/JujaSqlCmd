@@ -21,7 +21,7 @@ public class HelpTest {
     }
 
     @Test
-    public void testCanProcessExitString() {
+    public void testCanProcessHelpString() {
         //when
         boolean camProcess = command.canProcess("help");
         //then
