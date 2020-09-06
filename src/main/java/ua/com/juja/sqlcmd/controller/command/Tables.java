@@ -21,6 +21,10 @@ public class Tables implements Command {
 
     @Override
     public void process(String command) {
+        String[] data = command.split("\\|");
+        if (data.length != 1) {
+            throw new IllegalArgumentException("command format 'tables' but you entered: " + command);
+        }
         String[] tableNames = manager.getTableNames();
         String message = Arrays.toString(tableNames);
         view.write(message);
