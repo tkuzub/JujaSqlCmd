@@ -2,11 +2,14 @@ package ua.com.juja.sqlcmd.controller.command;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.atLeastOnce;
 
 public class DeleteTest {
     private DatabaseManager manager;
@@ -48,5 +51,49 @@ public class DeleteTest {
                     "expected 'delete|tableName|column|value'" +
                     " but you entered delete|user_info|name|indigo|password", e.getMessage());
         }
+    }
+
+    @Test
+    public void testDelete() {
+        //given
+        DataSet data1 = new DataSet();
+        data1.put("id", 101);
+        data1.put("name", "jon");
+        data1.put("password", "-----");
+        //when
+        DataSet[] data = new DataSet[]{data1};
+        when(manager.getTableColumns("test")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableData("test")).thenReturn(data);
+        command.process("delete|test|id|100");
+        //then
+        shouldPrint("[===================," +
+                " |id|name|password|," +
+                " ===================," +
+                " |101|jon|-----|]");
+    }
+
+    @Test
+    public void testDeleteWhenEqualsColumnsNotInteger() {
+        //given
+        DataSet data1 = new DataSet();
+        data1.put("id", 101);
+        data1.put("name", "jon");
+        data1.put("password", "-----");
+        //when
+        DataSet[] data = new DataSet[]{data1};
+        when(manager.getTableColumns("test")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableData("test")).thenReturn(data);
+        command.process("delete|test|name|jon");
+        //then
+        shouldPrint("[===================," +
+                " |id|name|password|," +
+                " ===================," +
+                " |101|jon|-----|]");
+    }
+
+    public void shouldPrint(String expected) {
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(view, atLeastOnce()).write(captor.capture());
+        assertEquals(expected, captor.getAllValues().toString());
     }
 }
