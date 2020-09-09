@@ -479,7 +479,8 @@ public class IntegrationTest {
                 "Success!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //update|some_table|name
-                "Failure for a reason: you entered the wrong number of parameters in the formatexpected 'update|tableName|column1|value1|column2|value2' but you entered update|some_table|name\r\n" +
+                "Failure for a reason: you entered the wrong number of parameters in the format expected " +
+                "'update|tableName|column1|value1|column2|value2|...|columnN|valueN' but you entered update|some_table|name\r\n" +
                 "Try again!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //exit

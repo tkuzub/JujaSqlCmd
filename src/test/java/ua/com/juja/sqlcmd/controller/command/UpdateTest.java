@@ -86,7 +86,7 @@ public class UpdateTest {
             fail();
         } catch (IllegalArgumentException e) {
             assertEquals("you entered the wrong number of parameters in the format" +
-                    "expected 'update|tableName|column1|value1|column2|value2|...|columnN|valueN'" +
+                    " expected 'update|tableName|column1|value1|column2|value2|...|columnN|valueN'" +
                     " but you entered update|test|id|100|name", e.getMessage());
         }
     }
