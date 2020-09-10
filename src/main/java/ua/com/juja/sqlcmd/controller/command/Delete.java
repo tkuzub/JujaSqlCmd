@@ -4,6 +4,8 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.Set;
+
 public class Delete implements Command {
     private final DatabaseManager manager;
     private final View view;
@@ -40,7 +42,7 @@ public class Delete implements Command {
         }
         manager.delete(tableName, deleteData);
 
-        String[] tableColumns = manager.getTableColumns(tableName);
+        Set<String> tableColumns = manager.getTableColumns(tableName);
         DataSet[] tableData = manager.getTableData(tableName);
 
         view.write("===================");
@@ -49,7 +51,7 @@ public class Delete implements Command {
         printTable(tableData);
     }
 
-    private void printHeader(String[] tableColumns) {
+    private void printHeader(Set<String> tableColumns) {
         StringBuilder result = new StringBuilder("|");
         for (String columnsName : tableColumns) {
             result.append(columnsName).append("|");

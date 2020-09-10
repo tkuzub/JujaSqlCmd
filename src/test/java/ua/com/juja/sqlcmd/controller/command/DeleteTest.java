@@ -7,6 +7,9 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.atLeastOnce;
@@ -62,7 +65,7 @@ public class DeleteTest {
         data1.put("password", "-----");
         //when
         DataSet[] data = new DataSet[]{data1};
-        when(manager.getTableColumns("test")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("delete|test|id|100");
         //then
@@ -81,7 +84,7 @@ public class DeleteTest {
         data1.put("password", "-----");
         //when
         DataSet[] data = new DataSet[]{data1};
-        when(manager.getTableColumns("test")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("delete|test|name|jon");
         //then

@@ -16,7 +16,7 @@ public interface DatabaseManager {
 
     void update(String tableName, DataSet checkData, DataSet newValue);
 
-    String[] getTableColumns(String tableName);
+    Set<String> getTableColumns(String tableName);
 
     boolean isConnected();
 

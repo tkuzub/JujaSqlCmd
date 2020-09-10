@@ -118,8 +118,8 @@ public abstract class DatabaseManagerTest {
         Set<String> tableNames = manager.getTableNames();
         assertEquals("[test, user_info, some_table]", tableNames.toString());
 
-        String[] tableColumns = manager.getTableColumns(tableName);
-        assertEquals("[id, name, password]", Arrays.toString(tableColumns));
+        Set<String> tableColumns = manager.getTableColumns(tableName);
+        assertEquals("[id, name, password]", tableColumns.toString());
 
         //delete table after create
         manager.drop(tableName);
@@ -128,11 +128,12 @@ public abstract class DatabaseManagerTest {
     @Test
     public void testGetTableColumns() {
         //given
-        manager.clear("user_info");
+        String tableName = "user_info";
+        manager.clear(tableName);
         //when
-        String[] data = manager.getTableColumns("user_info");
+        Set<String> tableColumns = manager.getTableColumns(tableName);
         //then
-        assertEquals("[id, name, password]", Arrays.toString(data));
+        assertEquals("[id, name, password]", tableColumns.toString());
     }
 
     @Test

@@ -1,10 +1,7 @@
 package ua.com.juja.sqlcmd.model;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class JDBCDatabaseManager implements DatabaseManager {
     private Connection connection;
@@ -156,19 +153,19 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String[] getTableColumns(String tableName) {
+    public Set<String> getTableColumns(String tableName) {
         try (Statement st = connection.createStatement();
              ResultSet rs = st.executeQuery("SELECT * FROM information_schema.columns WHERE table_schema='public'" +
                      " AND table_name = '" + tableName +"';")) {
 
-            List<String> listTables = new ArrayList<>();
+            Set<String> listTables = new LinkedHashSet<>();
             while (rs.next()) {
                 listTables.add(rs.getString("column_name"));
             }
-            return listTables.toArray(new String[0]);
+            return listTables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new String[0];
+            return new LinkedHashSet<>();
         }
     }
 

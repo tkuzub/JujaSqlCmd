@@ -11,6 +11,9 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+
 public class UpdateTest {
     private DatabaseManager manager;
     private View view;
@@ -50,7 +53,7 @@ public class UpdateTest {
         inputUpdate.put("password", "+++++");
         DataSet[] data = new DataSet[]{inputUpdate};
         //when
-        when(manager.getTableColumns("test")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("update|test|id|100|name|jon");
         //then
@@ -69,7 +72,7 @@ public class UpdateTest {
         inputUpdate.put("password", "-----");
         DataSet[] data = new DataSet[]{inputUpdate};
         //when
-        when(manager.getTableColumns("test")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("update|test|name|jon|password|-----");
         //then

@@ -7,6 +7,9 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -25,7 +28,7 @@ public class FindTest {
     @Test
     public void testPrintTableData() {
         //given
-        when(manager.getTableColumns("user_info")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableColumns("user_info")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         DataSet user1 = new DataSet();
         user1.put("id", 10);
         user1.put("name", "jon");
@@ -79,7 +82,7 @@ public class FindTest {
 
     @Test
     public void testPrintEmptyTableData() {
-        when(manager.getTableColumns("user_info")).thenReturn(new String[]{"id", "name", "password"});
+        when(manager.getTableColumns("user_info")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         DataSet[] data = new DataSet[0];
         when(manager.getTableData("user_info")).thenReturn(data);
         //when
