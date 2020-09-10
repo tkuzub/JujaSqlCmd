@@ -2,7 +2,9 @@ package ua.com.juja.sqlcmd.model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class JDBCDatabaseManager implements DatabaseManager {
     private Connection connection;
@@ -42,18 +44,18 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String[] getTableNames() {
+    public Set<String> getTableNames() {
         try (Statement st = connection.createStatement();
              ResultSet rs = st.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type = 'BASE TABLE';")) {
 
-            List<String> listTables = new ArrayList<>();
+            Set<String> listTables = new HashSet<>();
             while (rs.next()) {
                 listTables.add(rs.getString("table_name"));
             }
-            return listTables.toArray(new String[0]);
+            return listTables;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new String[0];
+            return new HashSet<>();
         }
     }
 

@@ -10,6 +10,9 @@ import org.mockito.ArgumentCaptor;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class TablesTest {
     private DatabaseManager manager;
     private View view;
@@ -36,9 +39,9 @@ public class TablesTest {
 
     @Test
     public void testTables() {
-        when(manager.getTableNames()).thenReturn(new String[]{"user_info", "test"});
+        when(manager.getTableNames()).thenReturn(new HashSet<>(Arrays.asList("user_info", "test")));
         command.process("tables");
-        shouldPrint("[[user_info, test]]");
+        shouldPrint("[[test, user_info]]");
     }
 
     @Test

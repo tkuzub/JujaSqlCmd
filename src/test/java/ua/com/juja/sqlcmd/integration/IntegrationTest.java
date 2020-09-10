@@ -163,7 +163,7 @@ public class IntegrationTest {
                 "Success!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //tables
-                "[user_info, test]\r\n" +
+                "[test, user_info]\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //exit
                 "Good bay!!!\r\n", getData());
@@ -213,7 +213,7 @@ public class IntegrationTest {
                 "Success!!!\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //tables
-                "[user_info, test]\r\n" +
+                "[test, user_info]\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //connect|test
                 "Success!!!\r\n" +
@@ -299,7 +299,7 @@ public class IntegrationTest {
                 "the table 'some_table' was created successfully\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //tables
-                "[user_info, test, some_table]\r\n" +
+                "[test, user_info, some_table]\r\n" +
                 "Enter an existing command (or command 'help' for help)\r\n" +
                 //drop|some_table
                 "the table 'some_table' was deleted successfully\r\n" +

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,8 +23,8 @@ public abstract class DatabaseManagerTest {
 
     @Test
     public void testGetAllTableName() {
-        String[] tableNames = manager.getTableNames();
-        assertEquals("[user_info, test]", Arrays.toString(tableNames));
+        Set<String> tableNames = manager.getTableNames();
+        assertEquals("[test, user_info]", tableNames.toString());
     }
 
     @Test
@@ -114,8 +115,8 @@ public abstract class DatabaseManagerTest {
         //when
         manager.create(tableName, input);
         //then
-        String[] tableNames = manager.getTableNames();
-        assertEquals("[user_info, test, some_table]", Arrays.toString(tableNames));
+        Set<String> tableNames = manager.getTableNames();
+        assertEquals("[test, user_info, some_table]", tableNames.toString());
 
         String[] tableColumns = manager.getTableColumns(tableName);
         assertEquals("[id, name, password]", Arrays.toString(tableColumns));

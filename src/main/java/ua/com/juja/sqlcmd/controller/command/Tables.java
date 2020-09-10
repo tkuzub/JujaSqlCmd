@@ -3,7 +3,7 @@ package ua.com.juja.sqlcmd.controller.command;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-import java.util.Arrays;
+import java.util.Set;
 
 public class Tables implements Command {
     private final View view;
@@ -25,8 +25,8 @@ public class Tables implements Command {
         if (data.length != 1) {
             throw new IllegalArgumentException("command format 'tables' but you entered: " + command);
         }
-        String[] tableNames = manager.getTableNames();
-        String message = Arrays.toString(tableNames);
+        Set<String> tableNames = manager.getTableNames();
+        String message = tableNames.toString();
         view.write(message);
     }
 }
