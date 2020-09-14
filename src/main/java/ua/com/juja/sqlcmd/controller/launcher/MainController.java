@@ -5,14 +5,16 @@ import ua.com.juja.sqlcmd.controller.exception.ExitException;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.*;
+
 public class MainController {
 
     private final View view;
-    private final Command[] commands;
+    private final List<Command> commands;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
-        this.commands = new Command[]{
+        this.commands = new ArrayList<>(Arrays.asList(
                 new Connect(manager, view),
                 new Help(view),
                 new Exit(view),
@@ -25,7 +27,7 @@ public class MainController {
                 new Find(manager, view),
                 new Drop(manager, view),
                 new Delete(manager, view),
-                new Unsupported(view)};
+                new Unsupported(view)));
     }
 
     public void run() {
