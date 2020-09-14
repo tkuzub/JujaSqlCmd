@@ -4,20 +4,19 @@ import java.sql.*;
 import java.util.*;
 
 public class JDBCDatabaseManager implements DatabaseManager {
+
     private Connection connection;
 
     @Override
-    public DataSet[] getTableData(String tableName) {
+    public List<DataSet> getTableData(String tableName) {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM public." + tableName)) {
-
-            int size = getSize(tableName);
             ResultSetMetaData metaData = rs.getMetaData();
-            DataSet[] result = new DataSet[size];
-            int index = 0;
+
+            List<DataSet> result = new LinkedList<>();
             while (rs.next()) {
                 DataSet dataSet = new DataSet();
-                result[index++] = dataSet;
+                result.add(dataSet);
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {
                     dataSet.put(metaData.getColumnName(i), rs.getObject(i));
                 }
@@ -25,18 +24,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new DataSet[0];
-        }
-    }
-
-    public int getSize(String tableName) {
-        try (Statement stmt = connection.createStatement();
-             ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName + ";")) {
-            rsCount.next();
-            return rsCount.getInt(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            return new LinkedList<>();
         }
     }
 

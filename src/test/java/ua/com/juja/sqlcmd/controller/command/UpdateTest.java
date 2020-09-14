@@ -13,6 +13,8 @@ import ua.com.juja.sqlcmd.view.View;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class UpdateTest {
     private DatabaseManager manager;
@@ -51,7 +53,8 @@ public class UpdateTest {
         inputUpdate.put("id", 100);
         inputUpdate.put("name", "jon");
         inputUpdate.put("password", "+++++");
-        DataSet[] data = new DataSet[]{inputUpdate};
+        List<DataSet> data = new LinkedList<>();
+        data.add(inputUpdate);
         //when
         when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
@@ -70,7 +73,8 @@ public class UpdateTest {
         inputUpdate.put("id", 100);
         inputUpdate.put("name", "jon");
         inputUpdate.put("password", "-----");
-        DataSet[] data = new DataSet[]{inputUpdate};
+        List<DataSet> data = new LinkedList<>();
+        data.add(inputUpdate);
         //when
         when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);

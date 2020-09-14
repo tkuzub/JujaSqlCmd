@@ -9,6 +9,8 @@ import ua.com.juja.sqlcmd.view.View;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -38,7 +40,9 @@ public class FindTest {
         user2.put("id", 11);
         user2.put("name", "bob");
         user2.put("password", "-----");
-        DataSet[] data = new DataSet[]{user1, user2};
+        List<DataSet> data = new LinkedList<>();
+        data.add(user1);
+        data.add(user2);
         when(manager.getTableData("user_info")).thenReturn(data);
         //when
         command.process("find|user_info");
@@ -83,7 +87,7 @@ public class FindTest {
     @Test
     public void testPrintEmptyTableData() {
         when(manager.getTableColumns("user_info")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
-        DataSet[] data = new DataSet[0];
+        List<DataSet> data = new LinkedList<>();;
         when(manager.getTableData("user_info")).thenReturn(data);
         //when
         command.process("find|user_info");

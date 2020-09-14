@@ -9,6 +9,8 @@ import ua.com.juja.sqlcmd.view.View;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -59,12 +61,13 @@ public class DeleteTest {
     @Test
     public void testDelete() {
         //given
-        DataSet data1 = new DataSet();
-        data1.put("id", 101);
-        data1.put("name", "jon");
-        data1.put("password", "-----");
+        DataSet user1 = new DataSet();
+        user1.put("id", 101);
+        user1.put("name", "jon");
+        user1.put("password", "-----");
         //when
-        DataSet[] data = new DataSet[]{data1};
+        List<DataSet> data = new LinkedList<>();
+        data.add(user1);
         when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("delete|test|id|100");
@@ -78,12 +81,13 @@ public class DeleteTest {
     @Test
     public void testDeleteWhenEqualsColumnsNotInteger() {
         //given
-        DataSet data1 = new DataSet();
-        data1.put("id", 101);
-        data1.put("name", "jon");
-        data1.put("password", "-----");
+        DataSet user1 = new DataSet();
+        user1.put("id", 101);
+        user1.put("name", "jon");
+        user1.put("password", "-----");
         //when
-        DataSet[] data = new DataSet[]{data1};
+        List<DataSet> data = new LinkedList<>();
+        data.add(user1);
         when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("delete|test|name|jon");

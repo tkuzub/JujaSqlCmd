@@ -4,6 +4,8 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class Delete implements Command {
@@ -43,7 +45,7 @@ public class Delete implements Command {
         manager.delete(tableName, deleteData);
 
         Set<String> tableColumns = manager.getTableColumns(tableName);
-        DataSet[] tableData = manager.getTableData(tableName);
+        List<DataSet> tableData = manager.getTableData(tableName);
 
         view.write("===================");
         printHeader(tableColumns);
@@ -59,7 +61,7 @@ public class Delete implements Command {
         view.write(result.toString());
     }
 
-    private void printTable(DataSet[] tableData) {
+    private void printTable(List<DataSet> tableData) {
         for (DataSet data : tableData) {
             printRow(data);
         }

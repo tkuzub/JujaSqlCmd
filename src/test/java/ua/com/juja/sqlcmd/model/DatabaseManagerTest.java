@@ -38,10 +38,10 @@ public abstract class DatabaseManagerTest {
         input.put("password", "password");
         manager.insert("user_info", input);
         //then
-        DataSet[] users = manager.getTableData("user_info");
-        assertEquals(1, users.length);
+        List<DataSet> users = manager.getTableData("user_info");
+        assertEquals(1, users.size());
 
-        DataSet user = users[0];
+        DataSet user = users.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user.getValues()));
     }
@@ -63,10 +63,10 @@ public abstract class DatabaseManagerTest {
         checkData.put("id", 13);
         manager.update("user_info", checkData, newValue);
         //then
-        DataSet[] users = manager.getTableData("user_info");
-        assertEquals(1, users.length);
+        List<DataSet> users = manager.getTableData("user_info");
+        assertEquals(1, users.size());
 
-        DataSet user = users[0];
+        DataSet user = users.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven Pupkin, pass2]", Arrays.toString(user.getValues()));
     }
@@ -86,14 +86,14 @@ public abstract class DatabaseManagerTest {
         input.put("password", "anaconda");
         manager.insert("user_info", input);
 
-        DataSet[] users = manager.getTableData("user_info");
-        assertEquals(2, users.length);
+        List<DataSet> users = manager.getTableData("user_info");
+        assertEquals(2, users.size());
 
-        DataSet user1 = users[0];
+        DataSet user1 = users.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user1.getNames()));
         assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user1.getValues()));
 
-        DataSet user2 = users[1];
+        DataSet user2 = users.get(1);
         assertEquals("[id, name, password]", Arrays.toString(user2.getNames()));
         assertEquals("[14, Bob Jons, anaconda]", Arrays.toString(user2.getValues()));
 
@@ -104,7 +104,7 @@ public abstract class DatabaseManagerTest {
         //then
         manager.delete("user_info", deleteData);
         users = manager.getTableData("user_info");
-        assertEquals(1, users.length);
+        assertEquals(1, users.size());
     }
 
     @Test
@@ -151,17 +151,17 @@ public abstract class DatabaseManagerTest {
         input.put("password", "password");
 
         manager.insert("user_info", input);
-        DataSet[] users = manager.getTableData("user_info");
+        List<DataSet> users = manager.getTableData("user_info");
 
-        assertEquals(1, users.length);
-        DataSet user = users[0];
+        assertEquals(1, users.size());
+        DataSet user = users.get(0);
         assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
         assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user.getValues()));
 
         //then
         manager.clear("user_info");
-        DataSet[] dataAfterClear = manager.getTableData("user_info");
+        List<DataSet> dataAfterClear = manager.getTableData("user_info");
         //when
-        assertEquals(0, dataAfterClear.length);
+        assertEquals(0, dataAfterClear.size());
     }
 }

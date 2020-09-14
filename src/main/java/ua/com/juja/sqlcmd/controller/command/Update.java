@@ -4,6 +4,7 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.List;
 import java.util.Set;
 
 public class Update implements Command {
@@ -51,7 +52,7 @@ public class Update implements Command {
         manager.update(tableName, checkData, newValue);
 
         Set<String> tableColumns = manager.getTableColumns(tableName);
-        DataSet[] tableData = manager.getTableData(tableName);
+        List<DataSet> tableData = manager.getTableData(tableName);
 
         view.write("===================");
         printHeader(tableColumns);
@@ -59,7 +60,7 @@ public class Update implements Command {
         printTable(tableData);
     }
 
-    private void printTable(DataSet[] tableData) {
+    private void printTable(List<DataSet> tableData) {
         for (DataSet data : tableData) {
             printRow(data);
         }
