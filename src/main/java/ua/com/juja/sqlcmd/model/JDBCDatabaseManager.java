@@ -15,7 +15,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
             List<DataSet> result = new LinkedList<>();
             while (rs.next()) {
-                DataSet dataSet = new DataSet();
+                DataSet dataSet = new DataSetImpl();
                 result.add(dataSet);
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {
                     dataSet.put(metaData.getColumnName(i), rs.getObject(i));

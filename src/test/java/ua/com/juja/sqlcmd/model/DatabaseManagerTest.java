@@ -33,7 +33,7 @@ public abstract class DatabaseManagerTest {
         //given
         manager.clear("user_info");
         //when
-        DataSet input = new DataSet();
+        DataSet input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
@@ -51,16 +51,16 @@ public abstract class DatabaseManagerTest {
     public void testUpdateTableData() {
         //given
         manager.clear("user_info");
-        DataSet input = new DataSet();
+        DataSet input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
         manager.insert("user_info", input);
         //when
-        DataSet newValue = new DataSet();
+        DataSet newValue = new DataSetImpl();
         newValue.put("password", "pass2");
 
-        DataSet checkData = new DataSet();
+        DataSet checkData = new DataSetImpl();
         checkData.put("id", 13);
         manager.update("user_info", checkData, newValue);
         //then
@@ -76,7 +76,7 @@ public abstract class DatabaseManagerTest {
     public void testDeleteEntryFromTable() {
         //given
         manager.clear("user_info");
-        DataSet input = new DataSet();
+        DataSet input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
@@ -99,7 +99,7 @@ public abstract class DatabaseManagerTest {
         assertEquals("[14, Bob Jons, anaconda]", Arrays.toString(user2.getValues()));
 
         //when
-        DataSet deleteData = new DataSet();
+        DataSet deleteData = new DataSetImpl();
         deleteData.put("name", "Bob Jons");
 
         //then
@@ -146,7 +146,7 @@ public abstract class DatabaseManagerTest {
     public void testClearTableName() {
         //given
         manager.clear("user_info");
-        DataSet input = new DataSet();
+        DataSet input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");

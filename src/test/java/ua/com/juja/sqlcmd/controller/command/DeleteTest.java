@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -62,7 +63,7 @@ public class DeleteTest {
     @Test
     public void testDelete() {
         //given
-        DataSet user1 = new DataSet();
+        DataSet user1 = new DataSetImpl();
         user1.put("id", 101);
         user1.put("name", "jon");
         user1.put("password", "-----");
@@ -82,7 +83,7 @@ public class DeleteTest {
     @Test
     public void testDeleteWhenEqualsColumnsNotInteger() {
         //given
-        DataSet user1 = new DataSet();
+        DataSet user1 = new DataSetImpl();
         user1.put("id", 101);
         user1.put("name", "jon");
         user1.put("password", "-----");

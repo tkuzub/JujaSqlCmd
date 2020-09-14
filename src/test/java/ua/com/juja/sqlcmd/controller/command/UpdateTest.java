@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -50,7 +51,7 @@ public class UpdateTest {
     @Test
     public void testUpdate() {
         //given
-        DataSet inputUpdate = new DataSet();
+        DataSet inputUpdate = new DataSetImpl();
         inputUpdate.put("id", 100);
         inputUpdate.put("name", "jon");
         inputUpdate.put("password", "+++++");
@@ -70,7 +71,7 @@ public class UpdateTest {
     @Test
     public void testUpdateWhenEqualsColumnsNotInteger() {
         //given
-        DataSet inputUpdate = new DataSet();
+        DataSet inputUpdate = new DataSetImpl();
         inputUpdate.put("id", 100);
         inputUpdate.put("name", "jon");
         inputUpdate.put("password", "-----");

@@ -1,6 +1,7 @@
 package ua.com.juja.sqlcmd.controller.command;
 
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -27,8 +28,8 @@ public class Update implements Command {
         String[] data = command.split("\\|");
         String tableName = data[1];
 
-        DataSet newValue = new DataSet();
-        DataSet checkData = new DataSet();
+        DataSet newValue = new DataSetImpl();
+        DataSet checkData = new DataSetImpl();
         if (data.length % 2 != 0) {
             throw new IllegalArgumentException("you entered the wrong number of parameters in the format " +
                     "expected 'update|tableName|column1|value1|column2|value2|...|columnN|valueN'" +

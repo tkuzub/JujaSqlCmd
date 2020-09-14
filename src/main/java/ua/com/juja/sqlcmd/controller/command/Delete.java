@@ -1,6 +1,7 @@
 package ua.com.juja.sqlcmd.controller.command;
 
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -31,7 +32,7 @@ public class Delete implements Command {
                     " but you entered " + command);
         }
         String tableName = data[1];
-        DataSet deleteData = new DataSet();
+        DataSet deleteData = new DataSetImpl();
 
         String columnName = data[2];
         String value = data[3];

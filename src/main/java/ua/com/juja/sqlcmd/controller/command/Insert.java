@@ -1,6 +1,7 @@
 package ua.com.juja.sqlcmd.controller.command;
 
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -29,7 +30,7 @@ public class Insert implements Command {
         }
 
         String tableName = data[1];
-        DataSet input = new DataSet();
+        DataSet input = new DataSetImpl();
 
         for (int index = 1; index < data.length / 2; index++) {
             String column = data[index * 2];

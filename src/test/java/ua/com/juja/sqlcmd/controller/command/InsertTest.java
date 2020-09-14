@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -44,7 +45,7 @@ public class InsertTest {
 
     @Test
     public void testInsert() {
-        DataSet input = new DataSet();
+        DataSet input = new DataSetImpl();
         input.put("id", 100);
         input.put("name", "do_nothing");
         input.put("password", "+++++");
