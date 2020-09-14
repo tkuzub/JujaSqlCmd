@@ -69,7 +69,7 @@ public class Update implements Command {
     }
 
     private void printRow(DataSet data) {
-        Object[] values = data.getValues();
+        List<Object> values = data.getValues();
         StringBuilder result = new StringBuilder("|");
         for (Object value : values) {
             result.append(value).append("|");

@@ -42,7 +42,7 @@ public class Find implements Command {
     }
 
     private void printRow(DataSet row) {
-        Object[] values = row.getValues();
+        List<Object> values = row.getValues();
         StringBuilder result = new StringBuilder("|");
         for (Object value : values) {
             result.append(value).append("|");

@@ -43,8 +43,8 @@ public abstract class DatabaseManagerTest {
         assertEquals(1, users.size());
 
         DataSet user = users.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", user.getNames().toString());
+        assertEquals("[13, Stiven Pupkin, password]", user.getValues().toString());
     }
 
     @Test
@@ -68,8 +68,8 @@ public abstract class DatabaseManagerTest {
         assertEquals(1, users.size());
 
         DataSet user = users.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Stiven Pupkin, pass2]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", user.getNames().toString());
+        assertEquals("[13, Stiven Pupkin, pass2]", user.getValues().toString());
     }
 
     @Test
@@ -91,12 +91,12 @@ public abstract class DatabaseManagerTest {
         assertEquals(2, users.size());
 
         DataSet user1 = users.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user1.getNames()));
-        assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user1.getValues()));
+        assertEquals("[id, name, password]", user1.getNames().toString());
+        assertEquals("[13, Stiven Pupkin, password]", user1.getValues().toString());
 
         DataSet user2 = users.get(1);
-        assertEquals("[id, name, password]", Arrays.toString(user2.getNames()));
-        assertEquals("[14, Bob Jons, anaconda]", Arrays.toString(user2.getValues()));
+        assertEquals("[id, name, password]", user2.getNames().toString());
+        assertEquals("[14, Bob Jons, anaconda]", user2.getValues().toString());
 
         //when
         DataSet deleteData = new DataSetImpl();
@@ -156,8 +156,8 @@ public abstract class DatabaseManagerTest {
 
         assertEquals(1, users.size());
         DataSet user = users.get(0);
-        assertEquals("[id, name, password]", Arrays.toString(user.getNames()));
-        assertEquals("[13, Stiven Pupkin, password]", Arrays.toString(user.getValues()));
+        assertEquals("[id, name, password]", user.getNames().toString());
+        assertEquals("[13, Stiven Pupkin, password]", user.getValues().toString());
 
         //then
         manager.clear("user_info");
