@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UpdateTest {
+
     private DatabaseManager manager;
     private View view;
     private Command command;

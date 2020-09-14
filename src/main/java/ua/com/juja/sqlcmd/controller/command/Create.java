@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Create implements Command {
+
     private final DatabaseManager manager;
     private final View view;
 

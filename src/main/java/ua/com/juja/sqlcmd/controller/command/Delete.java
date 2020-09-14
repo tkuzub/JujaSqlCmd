@@ -4,11 +4,11 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 public class Delete implements Command {
+
     private final DatabaseManager manager;
     private final View view;
 

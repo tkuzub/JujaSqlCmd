@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Update implements Command {
+
     private final DatabaseManager manager;
     private final View view;
 

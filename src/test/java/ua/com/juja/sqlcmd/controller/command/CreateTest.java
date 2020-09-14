@@ -14,6 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class CreateTest {
+
     private DatabaseManager manager;
     private View view;
     private Command command;

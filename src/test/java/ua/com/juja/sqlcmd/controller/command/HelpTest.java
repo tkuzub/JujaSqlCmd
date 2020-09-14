@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 
 
 public class HelpTest {
+
     private View view;
     private Command command;
 

@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public abstract class DatabaseManagerTest {
+
     private DatabaseManager manager;
 
     protected abstract DatabaseManager getDatabaseManager();

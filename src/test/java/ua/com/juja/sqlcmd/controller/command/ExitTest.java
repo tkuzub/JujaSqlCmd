@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 
 public class ExitTest {
+
     private View view;
     private Command command;
     @Before

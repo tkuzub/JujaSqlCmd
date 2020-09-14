@@ -3,6 +3,7 @@ package ua.com.juja.sqlcmd.controller.command;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Help implements Command {
+
     private final View view;
 
     public Help(View view) {

@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.Assert.assertEquals;
 
 public class IntegrationTest {
+
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
 

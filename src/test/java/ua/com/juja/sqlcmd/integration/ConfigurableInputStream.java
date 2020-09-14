@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ConfigurableInputStream extends InputStream {
+
     private String line;
     private boolean endLine = false;
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         if (line.length() == 0) {
             return -1;
         }
@@ -25,7 +26,7 @@ public class ConfigurableInputStream extends InputStream {
             endLine = true;
         }
 
-        return (int)ch;
+        return ch;
     }
 
     public void add(String line) {
@@ -37,7 +38,7 @@ public class ConfigurableInputStream extends InputStream {
     }
 
     @Override
-    public synchronized void reset() throws IOException {
+    public synchronized void reset() {
         line = null;
         endLine = false;
     }

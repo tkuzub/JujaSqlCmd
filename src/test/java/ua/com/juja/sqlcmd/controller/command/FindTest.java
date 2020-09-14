@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class FindTest {
+
     private View view;
     private DatabaseManager manager;
     private Command command;
@@ -87,7 +88,7 @@ public class FindTest {
     @Test
     public void testPrintEmptyTableData() {
         when(manager.getTableColumns("user_info")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
-        List<DataSet> data = new LinkedList<>();;
+        List<DataSet> data = new LinkedList<>();
         when(manager.getTableData("user_info")).thenReturn(data);
         //when
         command.process("find|user_info");
