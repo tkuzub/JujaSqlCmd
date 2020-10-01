@@ -18,7 +18,6 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.atLeastOnce;
 
 public class DeleteTest {
-
     private DatabaseManager manager;
     private View view;
     private Command command;

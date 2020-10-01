@@ -13,7 +13,6 @@ import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 public class InsertTest {
-
     private DatabaseManager manager;
     private View view;
     private Command command;

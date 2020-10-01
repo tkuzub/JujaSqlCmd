@@ -25,6 +25,7 @@ public class ClearTest {
     public void testClearTable() {
         //when
         command.process("clear|user_info");
+
         //then
         verify(manager).clear("user_info");
         verify(view).write("the table is completely cleared of data");
@@ -34,6 +35,7 @@ public class ClearTest {
     public void testCanProcessClearWithParametersString() {
         //when
         boolean camProcess = command.canProcess("clear|");
+
         //then
         assertTrue(camProcess);
     }
@@ -42,6 +44,7 @@ public class ClearTest {
     public void testCanProcessClearWithoutParametersString() {
         //when
         boolean camProcess = command.canProcess("clear");
+
         //then
         assertFalse(camProcess);
     }
@@ -50,6 +53,7 @@ public class ClearTest {
     public void testCanProcessQweString() {
         //when
         boolean camProcess = command.canProcess("qwe|user_info");
+
         //then
         assertFalse(camProcess);
     }

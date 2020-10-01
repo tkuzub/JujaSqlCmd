@@ -1,6 +1,5 @@
 package ua.com.juja.sqlcmd.integration;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class ConfigurableInputStream extends InputStream {
@@ -25,7 +24,6 @@ public class ConfigurableInputStream extends InputStream {
         if (ch == '\n') {
             endLine = true;
         }
-
         return ch;
     }
 

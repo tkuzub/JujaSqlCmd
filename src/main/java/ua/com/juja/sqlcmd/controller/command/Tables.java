@@ -6,7 +6,6 @@ import ua.com.juja.sqlcmd.view.View;
 import java.util.Set;
 
 public class Tables implements Command {
-
     private final View view;
     private final DatabaseManager manager;
 

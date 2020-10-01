@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class TablesTest {
-
     private DatabaseManager manager;
     private View view;
     private Command command;

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 public class Find implements Command {
-
     private final DatabaseManager manager;
     private final View view;
 

@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 
 
 public class HelpTest {
-
     private View view;
     private Command command;
 
@@ -25,6 +24,7 @@ public class HelpTest {
     public void testCanProcessHelpString() {
         //when
         boolean camProcess = command.canProcess("help");
+
         //then
         assertTrue(camProcess);
     }
@@ -33,6 +33,7 @@ public class HelpTest {
     public void testCanProcessQweString() {
         //when
         boolean camProcess = command.canProcess("qwe");
+
         //then
         assertFalse(camProcess);
     }

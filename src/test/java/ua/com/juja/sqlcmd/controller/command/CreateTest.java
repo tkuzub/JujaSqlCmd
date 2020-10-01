@@ -14,7 +14,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class CreateTest {
-
     private DatabaseManager manager;
     private View view;
     private Command command;
@@ -30,6 +29,7 @@ public class CreateTest {
     public void testCanProcessDropWithParametersString() {
         //when
         boolean camProcess = command.canProcess("create|");
+
         //then
         assertTrue(camProcess);
     }
@@ -38,6 +38,7 @@ public class CreateTest {
     public void testCanProcessDropWithoutParametersString() {
         //when
         boolean camProcess = command.canProcess("create");
+
         //then
         assertFalse(camProcess);
     }
@@ -46,6 +47,7 @@ public class CreateTest {
     public void testCanProcessQweString() {
         //when
         boolean camProcess = command.canProcess("qwe|user_info");
+
         //then
         assertFalse(camProcess);
     }
@@ -55,8 +57,10 @@ public class CreateTest {
         //given
         List<String> input = Arrays.asList("name", "password");
         String tableName = "some_table";
+
         //when
         command.process("create|some_table|name|password");
+
         //then
         verify(manager).create(tableName, input);
         verify(view).write("the table 'some_table' was created successfully");

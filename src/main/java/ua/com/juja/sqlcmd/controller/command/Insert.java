@@ -6,7 +6,6 @@ import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Insert implements Command {
-
     private final DatabaseManager manager;
     private final View view;
 
@@ -38,7 +37,6 @@ public class Insert implements Command {
             input.put(column, value);
         }
         manager.insert(tableName, input);
-
         view.write(String.format("new data has been added to the '%s' ", tableName));
     }
 }

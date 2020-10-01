@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class FindTest {
-
     private View view;
     private DatabaseManager manager;
     private Command command;
@@ -46,8 +45,10 @@ public class FindTest {
         data.add(user1);
         data.add(user2);
         when(manager.getTableData("user_info")).thenReturn(data);
+
         //when
         command.process("find|user_info");
+
         //then
         shouldPrint("[===================," +
                           " |id|name|password|," +
@@ -66,6 +67,7 @@ public class FindTest {
     public void testCanProcessFindWithParametersString() {
         //when
         boolean camProcess = command.canProcess("find|");
+
         //then
         assertTrue(camProcess);
     }
@@ -74,6 +76,7 @@ public class FindTest {
     public void testCanProcessFindWithoutParametersString() {
         //when
         boolean camProcess = command.canProcess("find");
+
         //then
         assertFalse(camProcess);
     }
@@ -82,6 +85,7 @@ public class FindTest {
     public void testCanProcessQweString() {
         //when
         boolean camProcess = command.canProcess("qwe|user_info");
+
         //then
         assertFalse(camProcess);
     }
@@ -91,8 +95,10 @@ public class FindTest {
         when(manager.getTableColumns("user_info")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         List<DataSet> data = new LinkedList<>();
         when(manager.getTableData("user_info")).thenReturn(data);
+
         //when
         command.process("find|user_info");
+
         //then
         shouldPrint("[===================," +
                            " |id|name|password|," +

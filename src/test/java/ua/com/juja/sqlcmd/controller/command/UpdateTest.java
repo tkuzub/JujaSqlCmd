@@ -18,7 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UpdateTest {
-
     private DatabaseManager manager;
     private View view;
     private Command command;
@@ -57,10 +56,12 @@ public class UpdateTest {
         inputUpdate.put("password", "+++++");
         List<DataSet> data = new LinkedList<>();
         data.add(inputUpdate);
+
         //when
         when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("update|test|id|100|name|jon");
+
         //then
         shouldPrint("[===================," +
                     " |id|name|password|," +
@@ -77,10 +78,12 @@ public class UpdateTest {
         inputUpdate.put("password", "-----");
         List<DataSet> data = new LinkedList<>();
         data.add(inputUpdate);
+
         //when
         when(manager.getTableColumns("test")).thenReturn(new LinkedHashSet<>(Arrays.asList("id", "name", "password")));
         when(manager.getTableData("test")).thenReturn(data);
         command.process("update|test|name|jon|password|-----");
+
         //then
         shouldPrint("[===================," +
                 " |id|name|password|," +

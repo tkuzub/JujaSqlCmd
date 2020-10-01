@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public abstract class DatabaseManagerTest {
-
     private DatabaseManager manager;
 
     protected abstract DatabaseManager getDatabaseManager();
@@ -32,12 +31,14 @@ public abstract class DatabaseManagerTest {
     public void testGetTableData() {
         //given
         manager.clear("user_info");
+
         //when
         DataSet input = new DataSetImpl();
         input.put("id", 13);
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
         manager.insert("user_info", input);
+
         //then
         List<DataSet> users = manager.getTableData("user_info");
         assertEquals(1, users.size());
@@ -56,6 +57,7 @@ public abstract class DatabaseManagerTest {
         input.put("name", "Stiven Pupkin");
         input.put("password", "password");
         manager.insert("user_info", input);
+
         //when
         DataSet newValue = new DataSetImpl();
         newValue.put("password", "pass2");
@@ -63,6 +65,7 @@ public abstract class DatabaseManagerTest {
         DataSet checkData = new DataSetImpl();
         checkData.put("id", 13);
         manager.update("user_info", checkData, newValue);
+
         //then
         List<DataSet> users = manager.getTableData("user_info");
         assertEquals(1, users.size());
@@ -113,8 +116,10 @@ public abstract class DatabaseManagerTest {
         //given
         List<String> input = Arrays.asList("name", "password");
         String tableName = "some_table";
+
         //when
         manager.create(tableName, input);
+
         //then
         Set<String> tableNames = manager.getTableNames();
         assertEquals("[test, user_info, some_table]", tableNames.toString());
@@ -131,8 +136,10 @@ public abstract class DatabaseManagerTest {
         //given
         String tableName = "user_info";
         manager.clear(tableName);
+
         //when
         Set<String> tableColumns = manager.getTableColumns(tableName);
+
         //then
         assertEquals("[id, name, password]", tableColumns.toString());
     }
@@ -162,6 +169,7 @@ public abstract class DatabaseManagerTest {
         //then
         manager.clear("user_info");
         List<DataSet> dataAfterClear = manager.getTableData("user_info");
+
         //when
         assertEquals(0, dataAfterClear.size());
     }

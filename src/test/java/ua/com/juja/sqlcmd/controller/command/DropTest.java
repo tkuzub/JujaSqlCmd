@@ -12,7 +12,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class DropTest {
-
     private DatabaseManager manager;
     private View view;
     private Command command;
@@ -28,6 +27,7 @@ public class DropTest {
     public void testCanProcessDropWithParametersString() {
         //when
         boolean camProcess = command.canProcess("drop|");
+
         //then
         assertTrue(camProcess);
     }
@@ -36,6 +36,7 @@ public class DropTest {
     public void testCanProcessDropWithoutParametersString() {
         //when
         boolean camProcess = command.canProcess("drop");
+
         //then
         assertFalse(camProcess);
     }
@@ -44,6 +45,7 @@ public class DropTest {
     public void testCanProcessQweString() {
         //when
         boolean camProcess = command.canProcess("qwe|user_info");
+
         //then
         assertFalse(camProcess);
     }

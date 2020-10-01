@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.Assert.assertEquals;
 
 public class IntegrationTest {
-
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
 
@@ -28,8 +27,10 @@ public class IntegrationTest {
     public void testExit() {
         //given
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -42,8 +43,10 @@ public class IntegrationTest {
         //given
         in.add("help");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -82,8 +85,10 @@ public class IntegrationTest {
         //given
         in.add("tables");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -99,8 +104,10 @@ public class IntegrationTest {
         //given
         in.add("find|user_info");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -116,8 +123,10 @@ public class IntegrationTest {
         //given
         in.add("unsupported");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -134,8 +143,10 @@ public class IntegrationTest {
         in.add("connect|sqlcmd_db|postgres|777");
         in.add("unsupported");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -155,8 +166,10 @@ public class IntegrationTest {
         in.add("connect|sqlcmd_db|postgres|777");
         in.add("tables");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -177,8 +190,10 @@ public class IntegrationTest {
         in.add("clear|user_info");
         in.add("find|user_info");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -205,8 +220,10 @@ public class IntegrationTest {
         in.add("connect|test|postgres|777");
         in.add("tables");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -231,8 +248,10 @@ public class IntegrationTest {
         //given
         in.add("connect|sqlcmd_db");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -253,8 +272,10 @@ public class IntegrationTest {
         in.add("find|user_info");
         in.add("clear|user_info");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -288,8 +309,10 @@ public class IntegrationTest {
         in.add("tables");
         in.add("drop|some_table");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -319,8 +342,10 @@ public class IntegrationTest {
         in.add("update|user_info|id|100|name|jon");
         in.add("delete|user_info|name|jon");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -365,8 +390,10 @@ public class IntegrationTest {
 
         in.add("delete|user_info|id|100");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -405,8 +432,10 @@ public class IntegrationTest {
         in.add("connect|sqlcmd_db|postgres|777");
         in.add("create|some_table|name");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -427,8 +456,10 @@ public class IntegrationTest {
         in.add("connect|sqlcmd_db|postgres|777");
         in.add("delete|some_table|name");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -449,8 +480,10 @@ public class IntegrationTest {
         in.add("connect|sqlcmd_db|postgres|777");
         in.add("insert|some_table|name");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +
@@ -471,8 +504,10 @@ public class IntegrationTest {
         in.add("connect|sqlcmd_db|postgres|777");
         in.add("update|some_table|name");
         in.add("exit");
+
         //when
         Main.main(new String[0]);
+
         //then
         assertEquals("Hello user!!!\r\n" +
                 "Please enter the database name, username and password in the format connect|databaseName|userName|password\r\n" +

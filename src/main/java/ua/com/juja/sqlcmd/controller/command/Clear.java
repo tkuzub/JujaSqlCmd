@@ -4,10 +4,8 @@ import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Clear implements Command {
-
     private final DatabaseManager manager;
     private final View view;
-
 
     public Clear(DatabaseManager manager, View view) {
         this.manager = manager;

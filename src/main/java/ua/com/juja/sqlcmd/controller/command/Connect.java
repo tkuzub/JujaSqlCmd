@@ -4,10 +4,11 @@ import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
 public class Connect implements Command {
-
-    public static final String COMMAND_SAMPLE = "connect|sqlcmd_db|postgres|777";
     private final DatabaseManager manager;
     private final View view;
+
+    public static final String COMMAND_SAMPLE = "connect|sqlcmd_db|postgres|777";
+
 
     public Connect(DatabaseManager manager, View view) {
         this.manager = manager;

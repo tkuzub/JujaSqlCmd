@@ -8,7 +8,6 @@ import ua.com.juja.sqlcmd.view.View;
 import java.util.*;
 
 public class MainController {
-
     private final View view;
     private final List<Command> commands;
 
