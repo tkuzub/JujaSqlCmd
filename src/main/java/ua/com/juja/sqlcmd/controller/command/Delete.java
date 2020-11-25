@@ -25,7 +25,7 @@ public class Delete implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-        if (data.length  != 4) {
+        if (data.length != 4) {
             throw new IllegalArgumentException("you entered the wrong number of parameters in the format" +
                     "expected 'delete|tableName|column|value'" +
                     " but you entered " + command);
@@ -35,9 +35,9 @@ public class Delete implements Command {
 
         String columnName = data[2];
         String value = data[3];
+        int valueInt = Integer.parseInt(value);
 
         if (columnName.equals("id")) {
-            int valueInt = Integer.parseInt(value);
             deleteData.put(columnName, valueInt);
         } else {
             deleteData.put(columnName, value);
