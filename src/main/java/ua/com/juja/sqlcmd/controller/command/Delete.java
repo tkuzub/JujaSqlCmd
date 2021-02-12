@@ -35,9 +35,9 @@ public class Delete implements Command {
 
         String columnName = data[2];
         String value = data[3];
-        int valueInt = Integer.parseInt(value);
 
         if (columnName.equals("id")) {
+            int valueInt = Integer.parseInt(value);
             deleteData.put(columnName, valueInt);
         } else {
             deleteData.put(columnName, value);
